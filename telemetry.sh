@@ -98,8 +98,9 @@ export SPARK_HOME=$HOME/spark
 export _JAVA_OPTIONS="-Dlog4j.configuration=file:///home/hadoop/spark/conf/log4j.properties -Xmx$DRIVER_MEMORY"
 EOF
 
+# Here we are using striping on the assumption that we have a layout with 2 SSD disks!
 SPARK_CONF=$(cat <<EOF
---conf spark.local.dir=/mnt \
+--conf spark.local.dir=/mnt,/mnt1 \
 --conf spark.akka.frameSize=500 \
 --conf spark.io.compression.codec=lzf \
 --conf spark.serializer=org.apache.spark.serializer.KryoSerializer

@@ -9,7 +9,7 @@ aws emr create-cluster --name SparkCluster --ami-version 3.3 --instance-type c3.
 --service-role EMR_DefaultRole --ec2-attributes KeyName=mozilla_vitillo,InstanceProfile=telemetry-spark-emr \
 --bootstrap-actions \
   Path=s3://support.elasticmapreduce/spark/install-spark,Args=\["-v","1.2.1"\] \
-  Path=s3://telemetry-spark-emr/telemetry.sh,Args=\["--timeout","100”\]
+  Path=s3://telemetry-spark-emr/telemetry.sh,Args=\["--timeout","100"\]
 ```
 
 ## Launch a batch job

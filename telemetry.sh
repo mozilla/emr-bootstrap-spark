@@ -98,10 +98,18 @@ export SPARK_HOME=$HOME/spark
 export _JAVA_OPTIONS="-Dlog4j.configuration=file:///home/hadoop/spark/conf/log4j.properties -Xmx$DRIVER_MEMORY"
 EOF
 
+SPARK_CONF=$(cat <<EOF
+--conf spark.local.dir=/mnt \
+--conf spark.akka.frameSize=500 \
+--conf spark.io.compression.codec=lzf \
+--conf spark.serializer=org.apache.spark.serializer.KryoSerializer
+EOF
+)
+
 if [ $EXECUTORS -eq 1 ]; then
-	echo "export PYSPARK_SUBMIT_ARGS=\"--master local[*] --conf spark.local.dir=/mnt --conf spark.akka.frameSize=500\"" >> $HOME/.bashrc
+	echo "export PYSPARK_SUBMIT_ARGS=\"--master local[*] $SPARK_CONF\"" >> $HOME/.bashrc
 else
-	echo "export PYSPARK_SUBMIT_ARGS=\"--master yarn --deploy-mode client --num-executors $EXECUTORS --executor-memory $EXECUTOR_MEMORY --executor-cores $EXECUTOR_CORES --conf spark.local.dir=/mnt --conf spark.akka.frameSize=500\"" >> $HOME/.bashrc
+	echo "export PYSPARK_SUBMIT_ARGS=\"--master yarn --deploy-mode client --num-executors $EXECUTORS --executor-memory $EXECUTOR_MEMORY --executor-cores $EXECUTOR_CORES $SPARK_CONF\"" >> $HOME/.bashrc
 fi
 
 source $HOME/.bashrc

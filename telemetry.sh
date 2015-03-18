@@ -1,4 +1,4 @@
-sudo yum -y install git jq htop tmux
+sudo yum -y install git jq htop tmux libffi-devel
 
 INSTANCES=$(jq .instanceCount /mnt/var/lib/info/job-flow.json)
 FLOWID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
@@ -69,7 +69,8 @@ sudo ln -s /usr/bin/python2.7 /usr/bin/python
 sudo ln -s /usr/bin/pip-2.7 /usr/bin/pip
 
 # Setup Python
-sudo pip install py4j python_moztelemetry requests boto pyliblzma numpy pandas ipython==2.4.1 pyzmq jinja2 tornado ujson statsmodels runipy plotly montecarlino
+sudo pip install py4j python_moztelemetry requests[security] boto pyliblzma numpy pandas ipython==2.4.1 \
+  pyzmq jinja2 tornado ujson statsmodels runipy plotly montecarlino
 
 # Fix empty backports.ssl-match-hostname package
 sudo /usr/bin/yes | sudo pip uninstall backports.ssl_match_hostname && sudo pip install backports.ssl_match_hostname

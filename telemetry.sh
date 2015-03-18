@@ -67,6 +67,7 @@ sudo chown hadoop:hadoop /mnt
 sudo rm /usr/bin/python /usr/bin/pip
 sudo ln -s /usr/bin/python2.7 /usr/bin/python
 sudo ln -s /usr/bin/pip-2.7 /usr/bin/pip
+sudo sed -i '1c\#!/usr/bin/python2.6' /usr/bin/yum
 
 # Setup Python
 sudo pip install py4j python_moztelemetry requests[security] boto pyliblzma numpy pandas ipython==2.4.1 \

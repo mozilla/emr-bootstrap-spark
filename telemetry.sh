@@ -1,4 +1,4 @@
-sudo yum -y install git jq htop tmux libffi-devel
+sudo yum -y install git jq htop tmux libffi-devel aws-cli
 
 INSTANCES=$(jq .instanceCount /mnt/var/lib/info/job-flow.json)
 FLOWID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
@@ -63,18 +63,17 @@ done
 # Setup Spark
 sudo chown hadoop:hadoop /mnt
 
-# Force Python 2.7
-sudo rm /usr/bin/python /usr/bin/pip
-sudo ln -s /usr/bin/python2.7 /usr/bin/python
-sudo ln -s /usr/bin/pip-2.7 /usr/bin/pip
-sudo sed -i '1c\#!/usr/bin/python2.6' /usr/bin/yum
-
 # Setup Python
-sudo pip install py4j python_moztelemetry requests[security] boto pyliblzma numpy pandas ipython==2.4.1 \
-  pyzmq jinja2 tornado ujson statsmodels runipy plotly montecarlino
+wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda-2.2.0-Linux-x86_64.sh
+bash Anaconda-2.2.0-Linux-x86_64.sh -b
 
-# Fix empty backports.ssl-match-hostname package
-sudo /usr/bin/yes | sudo pip uninstall backports.ssl_match_hostname && sudo pip install backports.ssl_match_hostname
+$HOME/anaconda/bin/pip install python_moztelemetry montecarlino py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16
+
+# Force Python 2.7 (Python executable path seems to be hardcoded in Spark)
+sudo rm /usr/bin/python /usr/bin/pip
+sudo ln -s $HOME/anaconda/bin/python /usr/bin/python
+sudo ln -s $HOME/anaconda/bin/pip /usr/bin/pip
+sudo sed -i '1c\#!/usr/bin/python2.6' /usr/bin/yum
 
 # Add public key
 if [ -n "$PUBLIC_KEY" ]; then
@@ -98,6 +97,7 @@ cat << EOF >> $HOME/.bashrc
 export PYTHONPATH=$HOME/spark/python/
 export SPARK_HOME=$HOME/spark
 export _JAVA_OPTIONS="-Dlog4j.configuration=file:///home/hadoop/spark/conf/log4j.properties -Xmx$DRIVER_MEMORY"
+export PATH=~/anaconda/bin:$PATH
 EOF
 
 # Here we are using striping on the assumption that we have a layout with 2 SSD disks!
@@ -152,5 +152,5 @@ EOF
 mkdir $HOME/.plotly && aws s3 cp s3://telemetry-spark-emr/plotly_credentials $HOME/.plotly/.credentials
 
 mkdir -p $HOME/analyses && cd $HOME/analyses
-wget https://gist.githubusercontent.com/vitillo/e1813025e7d26d640c80/raw/79245cdabe4207a6a29548f8c3192ed180a6f9f5/Telemetry%20Hello%20World.ipynb
-ipython notebook &
+wget https://raw.githubusercontent.com/vitillo/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb
+ipython notebook --browser=false&

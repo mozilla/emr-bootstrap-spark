@@ -1,4 +1,4 @@
-sudo yum -y install git jq htop tmux libffi-devel aws-cli
+sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh
 
 INSTANCES=$(jq .instanceCount /mnt/var/lib/info/job-flow.json)
 FLOWID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
@@ -150,6 +150,12 @@ EOF
 
 # Setup plotly
 mkdir $HOME/.plotly && aws s3 cp s3://telemetry-spark-emr/plotly_credentials $HOME/.plotly/.credentials
+
+# Setup dotfiles
+$(git clone --recursive https://github.com/vitillo/dotfiles.git;
+  cd dotfiles;
+  make install-vim install-zsh install-tmux install-git;
+  sudo chsh $USER -s /bin/zsh)
 
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget https://raw.githubusercontent.com/vitillo/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb

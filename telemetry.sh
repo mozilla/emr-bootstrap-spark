@@ -154,7 +154,7 @@ mkdir $HOME/.plotly && aws s3 cp s3://telemetry-spark-emr/plotly_credentials $HO
 # Setup dotfiles
 $(git clone --recursive https://github.com/vitillo/dotfiles.git;
   cd dotfiles;
-  make install-vim install-zsh install-tmux install-git;
+  make install-vim install-zsh install-tmux;
   sudo chsh $USER -s /bin/zsh)
 
 mkdir -p $HOME/analyses && cd $HOME/analyses

@@ -151,11 +151,15 @@ EOF
 # Setup plotly
 mkdir $HOME/.plotly && aws s3 cp s3://telemetry-spark-emr/plotly_credentials $HOME/.plotly/.credentials
 
+# Install external packages, e.g. emacs
+mkdir packages
+aws s3 cp --recursive s3://telemetry-spark-emr/packages/ ./packages
+sudo yum install packages/*
+
 # Setup dotfiles
 $(git clone --recursive https://github.com/vitillo/dotfiles.git;
   cd dotfiles;
-  make install-vim install-zsh install-tmux;
-  sudo chsh $USER -s /bin/zsh)
+  make install-vim install-tmux install-emacs;)
 
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget https://raw.githubusercontent.com/vitillo/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb

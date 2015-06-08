@@ -1,5 +1,10 @@
 sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh
 
+# Install external packages, e.g. emacs
+mkdir packages
+aws s3 cp --recursive s3://telemetry-spark-emr/packages/ ./packages
+sudo yum -y install packages/*
+
 INSTANCES=$(jq .instanceCount /mnt/var/lib/info/job-flow.json)
 FLOWID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
 EXECUTORS=$(($INSTANCES>1?$INSTANCES:2 - 1))
@@ -150,11 +155,6 @@ EOF
 
 # Setup plotly
 mkdir $HOME/.plotly && aws s3 cp s3://telemetry-spark-emr/plotly_credentials $HOME/.plotly/.credentials
-
-# Install external packages, e.g. emacs
-mkdir packages
-aws s3 cp --recursive s3://telemetry-spark-emr/packages/ ./packages
-sudo yum install packages/*
 
 # Setup dotfiles
 $(git clone --recursive https://github.com/vitillo/dotfiles.git;

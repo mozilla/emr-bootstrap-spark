@@ -163,4 +163,5 @@ $(git clone --recursive https://github.com/vitillo/dotfiles.git;
 
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget https://raw.githubusercontent.com/vitillo/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb
+wget https://raw.githubusercontent.com/vitillo/emr-bootstrap-spark/master/Unified%20Telemetry%20Hello%20World.ipynb
 ipython notebook --browser=false&

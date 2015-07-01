@@ -10,7 +10,7 @@ FLOWID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
 EXECUTORS=$(($INSTANCES>1?$INSTANCES:2 - 1))
 EXECUTOR_CORES=$(nproc)
 MAX_YARN_MEMORY=$(grep /home/hadoop/conf/yarn-site.xml -e "yarn\.scheduler\.maximum-allocation-mb" | sed 's/.*<value>\(.*\).*<\/value>.*/\1/g')
-EXECUTOR_MEMORY=$(echo "$MAX_YARN_MEMORY / 1.5" | bc | cut -d'.' -f1)M
+EXECUTOR_MEMORY=$(echo "($MAX_YARN_MEMORY - 1024 - 384) - ($MAX_YARN_MEMORY - 1024 - 384) * 0.07 " | bc | cut -d'.' -f1)M
 DRIVER_MEMORY=$EXECUTOR_MEMORY
 HOME=/home/hadoop
 

@@ -97,6 +97,10 @@ if [ "$IS_MASTER" = false ]; then
 	exit
 fi
 
+# Setup R environment
+mkdir -p $HOME/R_libs
+echo "export R_LIBS=$HOME/R_libs" >> $HOME/.bashrc
+
 # Configure environment variables
 cat << EOF >> $HOME/.bashrc
 

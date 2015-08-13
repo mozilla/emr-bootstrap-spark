@@ -1,4 +1,4 @@
-sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel R
+sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel
 
 # Install external packages, e.g. emacs
 mkdir packages
@@ -98,6 +98,12 @@ if [ "$IS_MASTER" = false ]; then
 fi
 
 # Setup R environment
+wget https://mran.revolutionanalytics.com/install/RRO-3.2.1-el6.x86_64.tar.gz
+tar -xzf RRO-3.2.1-el6.x86_64.tar.gz
+cd RRO-3.2.1
+sudo ./install.sh
+cd ..
+
 mkdir -p $HOME/R_libs
 echo "export R_LIBS=$HOME/R_libs" >> $HOME/.bashrc
 

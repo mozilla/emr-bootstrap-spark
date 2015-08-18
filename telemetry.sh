@@ -1,4 +1,4 @@
-sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel
+sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel readline-devel
 
 # Install external packages, e.g. emacs
 mkdir packages

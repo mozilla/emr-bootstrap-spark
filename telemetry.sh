@@ -74,7 +74,7 @@ sudo chown hadoop:hadoop /mnt
 wget https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda-2.2.0-Linux-x86_64.sh
 bash Anaconda-2.2.0-Linux-x86_64.sh -b
 
-$HOME/anaconda/bin/pip install python_moztelemetry python_mozaggregator montecarlino py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16
+$HOME/anaconda/bin/pip install python_moztelemetry python_mozaggregator montecarlino py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
 
 # Force Python 2.7 (Python executable path seems to be hardcoded in Spark)
 sudo rm /usr/bin/python /usr/bin/pip

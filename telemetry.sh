@@ -131,9 +131,9 @@ EOF
 )
 
 if [ $EXECUTORS -eq 1 ]; then
-	echo "export PYSPARK_SUBMIT_ARGS=\"--master local[*] $SPARK_CONF\"" >> $HOME/.bashrc
+	echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master local[*] $SPARK_CONF\"" >> $HOME/.bashrc
 else
-	echo "export PYSPARK_SUBMIT_ARGS=\"--master yarn --deploy-mode client --num-executors $EXECUTORS --executor-memory $EXECUTOR_MEMORY --executor-cores $EXECUTOR_CORES $SPARK_CONF\"" >> $HOME/.bashrc
+	echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --num-executors $EXECUTORS --executor-memory $EXECUTOR_MEMORY --executor-cores $EXECUTOR_CORES $SPARK_CONF\"" >> $HOME/.bashrc
 fi
 
 source $HOME/.bashrc

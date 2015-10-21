@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Cloudformation template for medusa",
+  "Description": "Cloudformation template for Spark with Mozilla Telemetry",
 
   "Resources": {
     "TelemetrySparkRole": {
@@ -88,12 +88,10 @@
                   "s3:ListBucket"
                 ],
                 "Resource": [
-                  "arn:aws:s3:::telemetry-analysis-code",
-                  "arn:aws:s3:::telemetry-analysis-code/*",
-                  "arn:aws:s3:::telemetry-spark-emr",
-                  "arn:aws:s3:::telemetry-spark-emr/*",
-                  "arn:aws:s3:::telemetry-elastic-emr",
-                  "arn:aws:s3:::telemetry-elastic-emr/*",
+                  "arn:aws:s3:::telemetry-analysis-code-2",
+                  "arn:aws:s3:::telemetry-analysis-code-2/*",
+                  "arn:aws:s3:::telemetry-spark-emr-2",
+                  "arn:aws:s3:::telemetry-spark-emr-2/*",
                   "arn:aws:s3:::support.elasticmapreduce",
                   "arn:aws:s3:::support.elasticmapreduce/*",
                   "arn:aws:s3:::elasticmapreduce",
@@ -137,8 +135,8 @@
                   "s3:Put*"
                 ],
                 "Resource": [
-                  "arn:aws:s3:::telemetry-public-analysis",
-                  "arn:aws:s3:::telemetry-public-analysis/*",
+                  "arn:aws:s3:::telemetry-public-analysis-2",
+                  "arn:aws:s3:::telemetry-public-analysis-2/*",
                   "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
                   "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*"
                 ]

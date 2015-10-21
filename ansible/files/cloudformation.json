@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Cloudformation template for medusa",
+  "Description": "Cloudformation template for Spark with Mozilla Telemetry",
 
   "Resources": {
     "TelemetrySparkRole": {

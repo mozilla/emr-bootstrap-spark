@@ -36,7 +36,7 @@ aws emr create-cluster \
   --steps Type=CUSTOM_JAR,Name=CustomJAR,ActionOnFailure=TERMINATE_JOB_FLOW,Jar=s3://us-west-2.elasticmapreduce/libs/script-runner/script-runner.jar,Args=\["s3://${SPARK_BUCKET}/batch.sh","--job-name","foo","--notebook","s3://${CODE_BUCKET}/jobs/foo/Telemetry Hello World.ipynb","--data-bucket","${PUBLIC_BUCKET}"\]
 ```
 
-## Deploy things to AWS via ansible
+## Deploy to AWS via ansible
 ```bash
 ansible-playbook ansible/deploy.yml -i ansible/inventory
 ```

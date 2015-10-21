@@ -16,6 +16,10 @@
         tags:
           type: "telemetry"
           application: "spark"
+        template_parameters:
+          TelemetryAnalysisCodeBucket: "{{telemetry_analysis_code_bucket}}"
+          TelemetryAnalysisSparkEMRBucket: "{{telemetry_analysis_spark_emr_bucket}}"
+          TelemetryAnalysisPublicBucket: "{{telemetry_analysis_public_bucket}}"
       register: cloudformation
 
     - name: create bucket

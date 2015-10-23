@@ -1,0 +1,33 @@
+- name: provision aws resources
+  hosts: localhost
+  remote_user: ubuntu
+  vars:
+    - region: us-west-2
+    - bucket: telemetry-spark-emr-2
+
+  tasks:
+    - name: launch cloudformation
+      cloudformation:
+        stack_name: "telemetry-spark-cloudformation"
+        state: "present"
+        region: "us-west-2"
+        disable_rollback: true
+        template: "files/cloudformation.json"
+        tags:
+          type: "telemetry"
+          application: "spark"
+        template_parameters:
+          TelemetryAnalysisCodeBucket: "{{telemetry_analysis_code_bucket}}"
+          TelemetryAnalysisSparkEMRBucket: "{{telemetry_analysis_spark_emr_bucket}}"
+          TelemetryAnalysisPublicBucket: "{{telemetry_analysis_public_bucket}}"
+      register: cloudformation
+
+    - name: create bucket
+      s3: bucket={{bucket}} region={{region}} mode=create
+
+    - name: copy bootstrap script
+      s3: bucket={{bucket}} region={{region}} object=batch.sh src=files/batch.sh mode=put
+
+    - name: copy bootstrap script
+      s3: bucket={{bucket}} region={{region}} object=telemetry.sh src=files/telemetry.sh mode=put
+

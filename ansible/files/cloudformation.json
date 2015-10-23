@@ -1,0 +1,261 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Cloudformation template for Spark with Mozilla Telemetry",
+
+  "Parameters": {
+    "TelemetryAnalysisCodeBucket": {
+      "Type": "String"
+    },
+    "TelemetryAnalysisSparkEMRBucket": {
+      "Type": "String"
+    },
+    "TelemetryAnalysisPublicBucket": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "TelemetrySparkRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "telemetry-spark-emr",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "S3:ListBucket",
+                    "s3:GetBucketLocation"
+                  ],
+                  "Resource": [
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-data",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-metadata",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
+                    "arn:aws:s3:::mozillametricsemrscripts",
+                    "arn:aws:s3:::mozillametricsfhrsamples"
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "S3:Get*"
+                  ],
+                  "Resource": [
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-data/*",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-metadata/*",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*",
+                    "arn:aws:s3:::mozillametricsemrscripts/*",
+                    "arn:aws:s3:::mozillametricsfhrsamples/*"
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sdb:*"
+                  ],
+                  "Resource": [
+                    "*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1430246788000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "elasticmapreduce:TerminateJobFlows"
+                  ],
+                  "Resource": [
+                    "*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1430246816000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "elasticmapreduce:Describe*",
+                    "ec2:Describe*",
+                    "rds:Describe*"
+                  ],
+                  "Resource": [
+                    "*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1389895830000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetBucketLocation",
+                    "s3:GetObject",
+                    "s3:ListBucket"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisCodeBucket"
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisCodeBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisSparkEMRBucket"
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisSparkEMRBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    },
+                    "arn:aws:s3:::support.elasticmapreduce",
+                    "arn:aws:s3:::support.elasticmapreduce/*",
+                    "arn:aws:s3:::elasticmapreduce",
+                    "arn:aws:s3:::elasticmapreduce/*",
+                    "arn:aws:s3:::us-west-2.elasticmapreduce",
+                    "arn:aws:s3:::us-west-2.elasticmapreduce/*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1389895858000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetBucketAcl",
+                    "s3:GetBucketLocation",
+                    "s3:GetBucketPolicy",
+                    "s3:GetBucketTagging",
+                    "s3:GetBucketVersioning",
+                    "s3:GetBucketWebsite",
+                    "s3:GetObject",
+                    "s3:GetObjectAcl",
+                    "s3:GetObjectVersion",
+                    "s3:GetObjectVersionAcl",
+                    "s3:ListBucket",
+                    "s3:ListBucketMultipartUploads",
+                    "s3:ListBucketVersions",
+                    "s3:ListMultipartUploadParts"
+                  ],
+                  "Resource": [
+                    "arn:aws:s3:::telemetry-published-v2",
+                    "arn:aws:s3:::telemetry-published-v2/*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1389895900000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:DeleteObject",
+                    "s3:GetBucketLocation",
+                    "s3:ListBucket",
+                    "s3:PutObject",
+                    "s3:Put*"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisPublicBucket"
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisPublicBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    },
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1406755842000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "ses:SendEmail",
+                    "ses:SendRawEmail"
+                  ],
+                  "Resource": [
+                    "*"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "TelemetrySparkInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Ref": "TelemetrySparkRole"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "InstanceProfile": {
+      "Description": "Spark instance profile",
+      "Value": {
+        "Ref": "TelemetrySparkInstanceProfile"
+      }
+    }
+  }
+}

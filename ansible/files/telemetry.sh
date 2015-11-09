@@ -162,7 +162,7 @@ log4j.logger.org.eclipse.jetty=WARN
 log4j.appender.FILE=org.apache.log4j.FileAppender
 
 # Change the path to where you want the log file to reside
-log4j.appender.FILE.File=$HOME/spark.log
+log4j.appender.FILE.File=/mnt/spark.log
 
 # Prettify output a bit
 log4j.appender.FILE.layout=org.apache.log4j.PatternLayout

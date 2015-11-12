@@ -107,7 +107,7 @@ echo "export LD_LIBRARY_PATH=/usr/lib64/RRO-3.2.1/R-3.2.1/lib64/R/lib/" >> $HOME
 echo "export PYTHONPATH=/usr/lib/spark/python/" >> $HOME/.bashrc
 echo "export SPARK_HOME=/usr/lib/spark" >> $HOME/.bashrc
 echo "export PATH=$ANACONDAPATH/bin:\$PATH" >> $HOME/.bashrc
-echo "export _JAVA_OPTIONS=\"-Dlog4j.configuration=file://$SPARK_LOG4J -Xmx$DRIVER_MEMORY\"" >> $HOME/.bashrc
+echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Dlog4j.configuration=file://$SPARK_LOG4J -Xmx$DRIVER_MEMORY\"" >> $HOME/.bashrc
 echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --executor-memory $EXECUTOR_MEMORY --conf spark.yarn.executor.memoryOverhead=$MEMORY_OVERHEAD pyspark-shell\"" >> $HOME/.bashrc
 
 source $HOME/.bashrc

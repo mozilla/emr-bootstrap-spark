@@ -1,0 +1,17 @@
+[
+  {
+    "Classification": "spark",
+    "Properties": {
+      "maximizeResourceAllocation": "true"
+    }
+  }, {
+    "Classification": "spark-defaults",
+    "Properties": {
+      "spark.local.dir": "/mnt,/mnt1",
+      "spark.driver.maxResultSize": "4g",
+      "spark.akka.frameSize": "512",
+      "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
+      "spark.sql.sources.partitionColumnTypeInference.enabled": "false"
+    }
+  }
+]

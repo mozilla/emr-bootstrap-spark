@@ -1,5 +1,11 @@
 [
   {
+    "Classification": "yarn-site",
+    "Properties": {
+      "yarn.nodemanager.pmem-check-enabled": "false",
+      "yarn.nodemanager.vmem-check-enabled": "false"
+    }
+  }, {
     "Classification": "spark",
     "Properties": {
       "maximizeResourceAllocation": "true"
@@ -12,6 +18,17 @@
       "spark.akka.frameSize": "512",
       "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
       "spark.sql.sources.partitionColumnTypeInference.enabled": "false"
+    }
+  }, {
+    "Classification": "spark-log4j",
+    "Properties": {
+      "log4j.rootLogger": "INFO, FILE",
+      "log4j.rootCategory": "INFO, FILE",
+      "log4j.logger.org.eclipse.jetty": "WARN",
+      "log4j.appender.FILE": "org.apache.log4j.FileAppender",
+      "log4j.appender.FILE.File": "/mnt/spark.log",
+      "log4j.appender.FILE.layout": "org.apache.log4j.PatternLayout",
+      "log4j.appender.FILE.layout.ConversionPattern": "%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n"
     }
   }
 ]

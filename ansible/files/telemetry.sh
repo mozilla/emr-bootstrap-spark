@@ -1,8 +1,6 @@
 TELEMETRY_CONF_BUCKET=s3://telemetry-spark-emr-2
-MAX_YARN_MEMORY=$(grep -A1 /etc/hadoop/conf.empty/yarn-site.xml -e "yarn\.scheduler\.maximum-allocation-mb" | grep "value" | sed 's/.*<value>\(.*\).*<\/value>.*/\1/g')
-EXECUTOR_MEMORY=$(echo "$MAX_YARN_MEMORY * 0.65" | bc | cut -d'.' -f1)
-MEMORY_OVERHEAD=$(echo "$MAX_YARN_MEMORY - 1024 - $EXECUTOR_MEMORY" | bc | cut -d'.' -f1)
-EXECUTOR_MEMORY=${EXECUTOR_MEMORY}M
+MEMORY_OVERHEAD=7000  # Tuned for c3.4xlarge
+EXECUTOR_MEMORY=15000M
 DRIVER_MEMORY=$EXECUTOR_MEMORY
 
 # Install packages
@@ -76,30 +74,6 @@ cd RRO-3.2.1; sudo ./install.sh; cd ..
 $ANACONDAPATH/bin/pip install rpy2
 mkdir -p $HOME/R_libs
 
-# Dump Spark logs to a file
-export SPARK_LOG4J=$HOME/spark.log4j.properties
-
-cat << EOF > $SPARK_LOG4J
-# Initialize root logger
-log4j.rootLogger=INFO, FILE
-
-# Set everything to be logged to the console
-log4j.rootCategory=INFO, FILE
-
-# Ignore messages below warning level from Jetty, because it's a bit verbose
-log4j.logger.org.eclipse.jetty=WARN
-
-# Set the appender named FILE to be a File appender
-log4j.appender.FILE=org.apache.log4j.FileAppender
-
-# Change the path to where you want the log file to reside
-log4j.appender.FILE.File=/mnt/spark.log
-
-# Prettify output a bit
-log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
-log4j.appender.FILE.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n
-EOF
-
 # Configure environment variables
 echo "" >> $HOME/.bashrc
 echo "export R_LIBS=$HOME/R_libs" >> $HOME/.bashrc
@@ -107,7 +81,7 @@ echo "export LD_LIBRARY_PATH=/usr/lib64/RRO-3.2.1/R-3.2.1/lib64/R/lib/" >> $HOME
 echo "export PYTHONPATH=/usr/lib/spark/python/" >> $HOME/.bashrc
 echo "export SPARK_HOME=/usr/lib/spark" >> $HOME/.bashrc
 echo "export PATH=$ANACONDAPATH/bin:\$PATH" >> $HOME/.bashrc
-echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Dlog4j.configuration=file://$SPARK_LOG4J -Xmx$DRIVER_MEMORY\"" >> $HOME/.bashrc
+echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY\"" >> $HOME/.bashrc
 echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --executor-memory $EXECUTOR_MEMORY --conf spark.yarn.executor.memoryOverhead=$MEMORY_OVERHEAD pyspark-shell\"" >> $HOME/.bashrc
 
 source $HOME/.bashrc

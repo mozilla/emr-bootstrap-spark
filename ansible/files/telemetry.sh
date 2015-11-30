@@ -12,6 +12,9 @@ mkdir packages
 aws s3 cp --recursive $TELEMETRY_CONF_BUCKET/packages/ ./packages
 sudo yum -y install packages/*
 
+# Download jars
+aws s3 sync $TELEMETRY_CONF_BUCKET/jars $HOME/jars
+
 # Check for master node
 IS_MASTER=true
 if [ -f /mnt/var/lib/info/instance.json ]

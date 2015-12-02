@@ -38,7 +38,7 @@ while [ $# -gt 0 ]; do
             break;
             ;;
     esac
-	  shift
+    shift
 done
 
 if [ -z "$JOB_NAME" ] || ([ -z "$NOTEBOOK" ] && [ -z "$JAR" ]) || ([ -n "$NOTEBOOK" ] && [ -n "$JAR" ]) || [ -z "$DATA_BUCKET" ]; then

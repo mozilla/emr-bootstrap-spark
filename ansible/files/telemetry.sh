@@ -19,29 +19,29 @@ aws s3 sync $TELEMETRY_CONF_BUCKET/jars $HOME/jars
 IS_MASTER=true
 if [ -f /mnt/var/lib/info/instance.json ]
 then
-	  IS_MASTER=$(jq .isMaster /mnt/var/lib/info/instance.json)
+    IS_MASTER=$(jq .isMaster /mnt/var/lib/info/instance.json)
 fi
 
 # Parse arguments
 while [ $# -gt 0 ]; do
-	  case "$1" in
-		    --public-key)
-			      shift
-			      PUBLIC_KEY=$1
-			      ;;
-		    --timeout)
-			      shift
-			      TIMEOUT=$1
-			      ;;
-		    -*)
-			      # do not exit out, just note failure
-			      echo 1>&2 "unrecognized option: $1"
-			      ;;
-		    *)
-			      break;
-			      ;;
-	  esac
-	  shift
+    case "$1" in
+        --public-key)
+            shift
+            PUBLIC_KEY=$1
+            ;;
+        --timeout)
+            shift
+            TIMEOUT=$1
+            ;;
+         -*)
+            # do not exit out, just note failure
+            echo 1>&2 "unrecognized option: $1"
+            ;;
+          *)
+            break;
+            ;;
+    esac
+    shift
 done
 
 # Setup Python
@@ -58,17 +58,17 @@ sudo sed -i '1c\#!/usr/bin/python2.6' /usr/bin/yum
 
 # Add public key
 if [ -n "$PUBLIC_KEY" ]; then
-	  echo $PUBLIC_KEY >> $HOME/.ssh/authorized_keys
+    echo $PUBLIC_KEY >> $HOME/.ssh/authorized_keys
 fi
 
 # Schedule shutdown at timeout
 if [ ! -z $TIMEOUT ]; then
-	  sudo shutdown -h +$TIMEOUT&
+    sudo shutdown -h +$TIMEOUT&
 fi
 
 # Continue only if master node
 if [ "$IS_MASTER" = false ]; then
-	  exit
+    exit
 fi
 
 # Setup R environment

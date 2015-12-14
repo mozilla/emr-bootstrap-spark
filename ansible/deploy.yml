@@ -25,9 +25,12 @@
     - name: create bucket
       s3: bucket={{bucket}} region={{region}} mode=create
 
-    - name: copy bootstrap script
-      s3: bucket={{bucket}} region={{region}} object=batch.sh src=files/batch.sh mode=put
+    - name: copy EMR steps
+      s3: bucket={{bucket}} region={{region}} object=steps/batch.sh src=files/batch.sh mode=put
 
-    - name: copy bootstrap script
-      s3: bucket={{bucket}} region={{region}} object=telemetry.sh src=files/telemetry.sh mode=put
+    - name: copy EMR bootstrap script
+      s3: bucket={{bucket}} region={{region}} object=bootstrap/telemetry.sh src=files/telemetry.sh mode=put
+      
+    - name: copy EMR configuration
+      s3: bucket={{bucket}} region={{region}} object=configuration/configuration.json src=files/configuration.json mode=put permission=public-read
 

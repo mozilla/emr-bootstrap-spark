@@ -33,11 +33,11 @@ while [ $# -gt 0 ]; do
             shift
             TIMEOUT=$1
             ;;
-         -*)
+        -*)
             # do not exit out, just note failure
             echo 1>&2 "unrecognized option: $1"
             ;;
-          *)
+        *)
             break;
             ;;
     esac
@@ -49,12 +49,6 @@ export ANACONDAPATH=$HOME/anaconda2
 wget -nc https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.0-Linux-x86_64.sh
 bash Anaconda2-2.4.0-Linux-x86_64.sh -b
 $ANACONDAPATH/bin/pip install python_moztelemetry python_mozaggregator montecarlino runipy py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
-
-# Force Python 2.7 (Python executable path seems to be hardcoded in Spark)
-sudo rm /usr/bin/python /usr/bin/pip
-sudo ln -s $ANACONDAPATH/bin/python /usr/bin/python
-sudo ln -s $ANACONDAPATH/bin/pip /usr/bin/pip
-sudo sed -i '1c\#!/usr/bin/python2.6' /usr/bin/yum
 
 # Add public key
 if [ -n "$PUBLIC_KEY" ]; then
@@ -84,6 +78,7 @@ echo "export R_LIBS=$HOME/R_libs" >> $HOME/.bashrc
 echo "export LD_LIBRARY_PATH=/usr/lib64/RRO-3.2.1/R-3.2.1/lib64/R/lib/" >> $HOME/.bashrc
 echo "export PYTHONPATH=/usr/lib/spark/python/" >> $HOME/.bashrc
 echo "export SPARK_HOME=/usr/lib/spark" >> $HOME/.bashrc
+echo "export PYSPARK_PYTHON=$ANACONDAPATH/bin/python" >> $HOME/.bashrc
 echo "export PATH=$ANACONDAPATH/bin:\$PATH" >> $HOME/.bashrc
 echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY\"" >> $HOME/.bashrc
 echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --executor-memory $EXECUTOR_MEMORY --conf spark.yarn.executor.memoryOverhead=$MEMORY_OVERHEAD pyspark-shell\"" >> $HOME/.bashrc

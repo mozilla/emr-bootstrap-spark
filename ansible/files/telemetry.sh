@@ -48,7 +48,7 @@ done
 export ANACONDAPATH=$HOME/anaconda2
 wget -nc https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.0-Linux-x86_64.sh
 bash Anaconda2-2.4.0-Linux-x86_64.sh -b
-$ANACONDAPATH/bin/pip install python_moztelemetry python_mozaggregator montecarlino runipy py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
+$ANACONDAPATH/bin/pip install python_moztelemetry python_mozaggregator montecarlino runipy boto3 py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
 
 # Add public key
 if [ -n "$PUBLIC_KEY" ]; then

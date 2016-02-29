@@ -3,6 +3,9 @@ MEMORY_OVERHEAD=7000  # Tuned for c3.4xlarge
 EXECUTOR_MEMORY=15000M
 DRIVER_MEMORY=$EXECUTOR_MEMORY
 
+# Enable EPEL
+yum-config-manager --enable epel
+
 # Install packages
 curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
 sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel readline-devel sbt

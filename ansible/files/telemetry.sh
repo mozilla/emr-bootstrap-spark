@@ -96,11 +96,6 @@ EOF
 # Setup plotly
 mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/plotly_credentials $HOME/.plotly/.credentials
 
-# Setup dotfiles
-$(git clone --recursive https://github.com/vitillo/dotfiles.git;
-  cd dotfiles;
-  make install-vim install-tmux install-emacs)
-
 # Launch IPython
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget -nc https://raw.githubusercontent.com/vitillo/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb

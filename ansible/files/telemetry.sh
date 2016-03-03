@@ -8,12 +8,7 @@ yum-config-manager --enable epel
 
 # Install packages
 curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
-sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel readline-devel sbt
-
-# Install custom packages, e.g. emacs
-mkdir packages
-aws s3 cp --recursive $TELEMETRY_CONF_BUCKET/packages/ ./packages
-sudo yum -y install packages/*
+sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel readline-devel sbt emacs
 
 # Download jars
 aws s3 sync $TELEMETRY_CONF_BUCKET/jars $HOME/jars
@@ -98,11 +93,6 @@ EOF
 
 # Setup plotly
 mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/plotly_credentials $HOME/.plotly/.credentials
-
-# Setup dotfiles
-$(git clone --recursive https://github.com/vitillo/dotfiles.git;
-  cd dotfiles;
-  make install-vim install-tmux install-emacs)
 
 # Launch IPython
 mkdir -p $HOME/analyses && cd $HOME/analyses

@@ -1,7 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Cloudformation template for Spark with Mozilla Telemetry",
-
   "Parameters": {
     "TelemetryAnalysisCodeBucket": {
       "Type": "String"
@@ -218,7 +217,9 @@
                       ]
                     },
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
-                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*"
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*",
+                    "arn:aws:s3:::net-mozaws-prod-metrics-data",
+                    "arn:aws:s3:::net-mozaws-prod-metrics-data/*"
                   ]
                 },
                 {

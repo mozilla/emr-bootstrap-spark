@@ -1,6 +1,7 @@
 TELEMETRY_CONF_BUCKET=s3://telemetry-spark-emr-2
 MEMORY_OVERHEAD=7000  # Tuned for c3.4xlarge
 EXECUTOR_MEMORY=15000M
+DRIVER_MIN_HEAP=1000M
 DRIVER_MEMORY=$EXECUTOR_MEMORY
 
 # Enable EPEL
@@ -78,7 +79,7 @@ echo "export PYTHONPATH=/usr/lib/spark/python/" >> $HOME/.bashrc
 echo "export SPARK_HOME=/usr/lib/spark" >> $HOME/.bashrc
 echo "export PYSPARK_PYTHON=$ANACONDAPATH/bin/python" >> $HOME/.bashrc
 echo "export PATH=$ANACONDAPATH/bin:\$PATH" >> $HOME/.bashrc
-echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY\"" >> $HOME/.bashrc
+echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY -Xms$DRIVER_MIN_HEAP\"" >> $HOME/.bashrc
 echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --executor-memory $EXECUTOR_MEMORY --conf spark.yarn.executor.memoryOverhead=$MEMORY_OVERHEAD pyspark-shell\"" >> $HOME/.bashrc
 
 source $HOME/.bashrc

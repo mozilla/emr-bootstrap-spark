@@ -5,7 +5,7 @@ DRIVER_MIN_HEAP=1000M
 DRIVER_MEMORY=$EXECUTOR_MEMORY
 
 # Enable EPEL
-yum-config-manager --enable epel
+sudo yum-config-manager --enable epel
 
 # Install packages
 curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo

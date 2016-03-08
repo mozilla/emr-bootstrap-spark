@@ -45,3 +45,5 @@ aws emr create-cluster \
 ```bash
 ansible-playbook ansible/deploy.yml -e '@ansible/envs/dev.yml' -i ansible/inventory
 ```
+
+The Spark Jupyter notebook configuration is hosted at `https://s3-us-west-2.amazonaws.com/telemetry-spark-emr-2/jupyter_notebook_config.py`. At the moment, this is only needed for the GitHub Gist export option in the Jupyter notebook. The credentials it contains are managed under the [Mozilla GitHub account](https://github.com/mozilla/) by :whd. This file **should not be made public**.

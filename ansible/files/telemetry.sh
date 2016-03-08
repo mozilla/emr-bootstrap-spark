@@ -45,9 +45,9 @@ done
 
 # Setup Python
 export ANACONDAPATH=$HOME/anaconda2
-wget -nc https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.4.0-Linux-x86_64.sh
-bash Anaconda2-2.4.0-Linux-x86_64.sh -b
-$ANACONDAPATH/bin/pip install python_moztelemetry python_mozaggregator montecarlino runipy boto3 py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
+wget -nc https://3230d63b5fc54e62148e-c95ac804525aac4b6dba79b00b39d1d3.ssl.cf1.rackcdn.com/Anaconda2-2.5.0-Linux-x86_64.sh
+bash Anaconda2-2.5.0-Linux-x86_64.sh -b
+$ANACONDAPATH/bin/pip install python_moztelemetry python_mozaggregator montecarlino jupyter-notebook-gist runipy boto3 py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
 
 # Add public key
 if [ -n "$PUBLIC_KEY" ]; then
@@ -83,6 +83,9 @@ echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY -Xms$DRI
 echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --executor-memory $EXECUTOR_MEMORY --conf spark.yarn.executor.memoryOverhead=$MEMORY_OVERHEAD pyspark-shell\"" >> $HOME/.bashrc
 
 source $HOME/.bashrc
+
+# Setup Jupyter notebook
+aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 
 # Setup IPython
 ipython profile create

@@ -100,5 +100,5 @@ mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/plotly_credentials $H
 
 # Launch IPython
 mkdir -p $HOME/analyses && cd $HOME/analyses
-wget -nc https://raw.githubusercontent.com/vitillo/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb
+wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb
 ipython notebook --browser=false&

@@ -45,6 +45,9 @@ if [ -z "$JOB_NAME" ] || ([ -z "$NOTEBOOK" ] && [ -z "$JAR" ]) || ([ -n "$NOTEBO
     exit -1
 fi
 
+# Wait for Parquet datasets to be loaded
+while ps aux | grep hive_config.sh | grep -v grep > /dev/null; do sleep 1; done
+
 LOG="logs/$JOB_NAME.$(date +%Y%m%d%H%M%S).log"
 PLOG="../$LOG"
 S3_BASE="s3://$DATA_BUCKET/$JOB_NAME"

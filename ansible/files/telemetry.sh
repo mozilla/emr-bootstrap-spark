@@ -103,5 +103,6 @@ parquet2hive s3://telemetry-parquet/longitudinal | bash
 
 # Launch IPython
 mkdir -p $HOME/analyses && cd $HOME/analyses
-wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/Telemetry%20Hello%20World.ipynb
+wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Telemetry%20Hello%20World.ipynb
+wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Longitudinal%20Dataset%20Tutorial.ipynb
 ipython notebook --browser=false&

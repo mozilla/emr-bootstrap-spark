@@ -98,8 +98,16 @@ EOF
 # Setup plotly
 mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/plotly_credentials $HOME/.plotly/.credentials
 
-# Load Parquet datasets
-parquet2hive s3://telemetry-parquet/longitudinal | bash
+# Load Parquet datasets after Hive metastore is up
+HIVE_CONFIG_SCRIPT=$(cat <<EOF
+while ! hive -e 'show tables' > /dev/null; do sleep 1; done
+/home/hadoop/anaconda2/bin/parquet2hive s3://telemetry-parquet/longitudinal | bash
+exit 0
+EOF
+)
+echo "${HIVE_CONFIG_SCRIPT}" | tee /tmp/hive_config.sh
+chmod u+x /tmp/hive_config.sh
+bash /tmp/hive_config.sh &
 
 # Launch IPython
 mkdir -p $HOME/analyses && cd $HOME/analyses

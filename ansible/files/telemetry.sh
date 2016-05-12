@@ -72,6 +72,9 @@ if [ "$IS_MASTER" = false ]; then
     exit
 fi
 
+# Setup Spark logging
+sudo chmod o+w /mnt/var/log/spark/spark.log
+
 # Setup R environment
 wget -nc https://mran.revolutionanalytics.com/install/RRO-3.2.1-el6.x86_64.tar.gz
 tar -xzf RRO-3.2.1-el6.x86_64.tar.gz

@@ -268,6 +268,24 @@
                     "S3:*"
                   ],
                   "Effect": "Allow"
+                },
+                {
+                  "Resource": [
+                    "arn:aws:s3:::telemetry-airflow"
+                  ],
+                  "Action": [
+                    "*"
+                  ],
+                  "Effect": "Allow"
+                },
+                {
+                  "Resource": [
+                    "arn:aws:s3:::telemetry-airflow/*"
+                  ],
+                  "Action": [
+                    "S3:*"
+                  ],
+                  "Effect": "Allow"
                 }
               ]
             }

@@ -62,16 +62,18 @@ if [ -n "$JAR" ]; then
     cd output
     echo "Beginning job $JOB_NAME ..." >> "$PLOG"
     spark-submit --master yarn-client "../${JAR##*/}" $ARGS >> "$PLOG" 2>&1
+    EXIT_CODE=$?
     echo "Finished job $JOB_NAME" >> "$PLOG"
-    echo "'$MAIN' exited with code $?" >> "$PLOG"
+    echo "'$MAIN' exited with code $EXIT_CODE" >> "$PLOG"
 else
     # Run notebook
     aws s3 cp "$NOTEBOOK" .
     cd output
     echo "Beginning job $JOB_NAME ..." >> "$PLOG"
     runipy "../${NOTEBOOK##*/}" "${NOTEBOOK##*/}" --pylab >> "$PLOG" 2>&1
+    EXIT_CODE=$?
     echo "Finished job $JOB_NAME" >> "$PLOG"
-    echo "'$MAIN' exited with code $?" >> "$PLOG"
+    echo "'$MAIN' exited with code $EXIT_CODE" >> "$PLOG"
 fi
 
 # Upload output files

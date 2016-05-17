@@ -12,7 +12,7 @@
         state: "present"
         region: "us-west-2"
         disable_rollback: true
-        template: "files/cloudformation.json"
+        template: "ansible/files/cloudformation.json"
         tags:
           type: "telemetry"
           application: "spark"
@@ -26,11 +26,11 @@
       s3: bucket={{bucket}} region={{region}} mode=create
 
     - name: copy EMR steps
-      s3: bucket={{bucket}} region={{region}} object=steps/batch.sh src=files/batch.sh mode=put
+      s3: bucket={{bucket}} region={{region}} object=steps/batch.sh src=ansible/files/batch.sh mode=put
 
     - name: copy EMR bootstrap script
-      s3: bucket={{bucket}} region={{region}} object=bootstrap/telemetry.sh src=files/telemetry.sh mode=put
-      
+      s3: bucket={{bucket}} region={{region}} object=bootstrap/telemetry.sh src=ansible/files/telemetry.sh mode=put
+
     - name: copy EMR configuration
-      s3: bucket={{bucket}} region={{region}} object=configuration/configuration.json src=files/configuration.json mode=put permission=public-read
+      s3: bucket={{bucket}} region={{region}} object=configuration/configuration.json src=ansible/files/configuration.json mode=put permission=public-read
 

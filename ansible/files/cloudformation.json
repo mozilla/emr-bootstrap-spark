@@ -48,7 +48,8 @@
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-metadata",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
                     "arn:aws:s3:::mozillametricsemrscripts",
-                    "arn:aws:s3:::mozillametricsfhrsamples"
+                    "arn:aws:s3:::mozillametricsfhrsamples",
+                    "arn:aws:s3:::mozilla-metrics"
                   ]
                 },
                 {
@@ -61,7 +62,8 @@
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-metadata/*",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*",
                     "arn:aws:s3:::mozillametricsemrscripts/*",
-                    "arn:aws:s3:::mozillametricsfhrsamples/*"
+                    "arn:aws:s3:::mozillametricsfhrsamples/*",
+                    "arn:aws:s3:::mozilla-metrics/*"
                   ]
                 },
                 {

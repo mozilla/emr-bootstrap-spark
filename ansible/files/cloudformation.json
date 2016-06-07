@@ -10,6 +10,9 @@
     },
     "TelemetryAnalysisPublicBucket": {
       "Type": "String"
+    },
+    "TelemetryAnalysisPrivateBucket": {
+      "Type": "String"
     }
   },
   "Resources": {
@@ -213,6 +216,29 @@
                           "arn:aws:s3:::",
                           {
                             "Ref": "TelemetryAnalysisPublicBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisPrivateBucket"
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisPrivateBucket"
                           },
                           "/*"
                         ]

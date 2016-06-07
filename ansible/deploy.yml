@@ -20,6 +20,7 @@
           TelemetryAnalysisCodeBucket: "{{telemetry_analysis_code_bucket}}"
           TelemetryAnalysisSparkEMRBucket: "{{telemetry_analysis_spark_emr_bucket}}"
           TelemetryAnalysisPublicBucket: "{{telemetry_analysis_public_bucket}}"
+          TelemetryAnalysisPrivateBucket: "{{telemetry_analysis_private_bucket}}"
       register: cloudformation
 
     - name: create bucket

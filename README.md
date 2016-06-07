@@ -24,7 +24,7 @@ aws emr create-cluster \
 ## Batch job
 ```bash
 # Also export the vars from the 'interactive' section above.
-export PUBLIC_BUCKET=telemetry-public-analysis-2
+export DATA_BUCKET=telemetry-public-analysis-2 # Or use the private bucket.
 export CODE_BUCKET=telemetry-analysis-code-2
 aws emr create-cluster \
   --region us-west-2 \
@@ -38,7 +38,7 @@ aws emr create-cluster \
   --bootstrap-actions Path=s3://${SPARK_BUCKET}/bootstrap/telemetry.sh \
   --configurations https://s3-us-west-2.amazonaws.com/${SPARK_BUCKET}/configuration/configuration.json 
   --auto-terminate \
-  --steps Type=CUSTOM_JAR,Name=CustomJAR,ActionOnFailure=TERMINATE_JOB_FLOW,Jar=s3://us-west-2.elasticmapreduce/libs/script-runner/script-runner.jar,Args=\["s3://${SPARK_BUCKET}/batch.sh","--job-name","foo","--notebook","s3://${CODE_BUCKET}/jobs/foo/Telemetry Hello World.ipynb","--data-bucket","${PUBLIC_BUCKET}"\]
+  --steps Type=CUSTOM_JAR,Name=CustomJAR,ActionOnFailure=TERMINATE_JOB_FLOW,Jar=s3://us-west-2.elasticmapreduce/libs/script-runner/script-runner.jar,Args=\["s3://${SPARK_BUCKET}/batch.sh","--job-name","foo","--notebook","s3://${CODE_BUCKET}/jobs/foo/Telemetry Hello World.ipynb","--data-bucket","${DATA_BUCKET}"\]
 ```
 
 ## Deploy to AWS via ansible

@@ -1,5 +1,7 @@
+#!/bin/bash
+
 # logging for any errors during bootstrapping
-exec >> /var/log/bootstrap-script.log
+exec > >(tee -i /var/log/bootstrap-script.log)
 exec 2>&1
 
 # we won't use `set -e` because that means that AWS would terminate the instance and we wouldn't get logs for why it failed

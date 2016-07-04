@@ -55,8 +55,25 @@ export ANACONDAPATH=$HOME/anaconda2
 ANACONDA_SCRIPT=Anaconda2-4.0.0-Linux-x86_64.sh
 wget --no-clobber --no-verbose http://repo.continuum.io/archive/$ANACONDA_SCRIPT
 bash $ANACONDA_SCRIPT -b
-$ANACONDAPATH/bin/pip install python_moztelemetry python_mozaggregator montecarlino jupyter-notebook-gist runipy boto3 parquet2hive py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
+
+PIP_REQUIREMENTS_FILE=/tmp/requirements.txt
+cat << EOF > $PIP_REQUIREMENTS_FILE
+python_moztelemetry
+python_mozaggregator
+montecarlino
+jupyter-notebook-gist==0.3.1
+jupyter-spark>=0.3.0,<1.0.0
+runipy
+boto3
+parquet2hive
+py4j==0.8.2.1
+pyliblzma==0.5.3
+plotly==1.6.16
+seaborn==0.6.0
+EOF
+$ANACONDAPATH/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $ANACONDA_SCRIPT
+rm $PIP_REQUIREMENTS_FILE
 
 # Add public key
 if [ -n "$PUBLIC_KEY" ]; then

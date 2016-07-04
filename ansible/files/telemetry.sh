@@ -141,7 +141,13 @@ echo "${HIVE_CONFIG_SCRIPT}" | tee /tmp/hive_config.sh
 chmod u+x /tmp/hive_config.sh
 bash /tmp/hive_config.sh &
 
-# Launch IPython
+# Configure Jupyter
+jupyter nbextension enable --py widgetsnbextension --user
+jupyter serverextension enable --py jupyter_spark --user
+jupyter nbextension install --py jupyter_spark --user
+jupyter nbextension enable --py jupyter_spark --user
+
+# Launch Jupyter Notebook
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Telemetry%20Hello%20World.ipynb
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Longitudinal%20Dataset%20Tutorial.ipynb

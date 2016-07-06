@@ -55,8 +55,25 @@ export ANACONDAPATH=$HOME/anaconda2
 ANACONDA_SCRIPT=Anaconda2-4.0.0-Linux-x86_64.sh
 wget --no-clobber --no-verbose http://repo.continuum.io/archive/$ANACONDA_SCRIPT
 bash $ANACONDA_SCRIPT -b
-$ANACONDAPATH/bin/pip install python_moztelemetry python_mozaggregator montecarlino jupyter-notebook-gist runipy boto3 parquet2hive py4j==0.8.2.1 pyliblzma==0.5.3 plotly==1.6.16 seaborn==0.6.0
+
+PIP_REQUIREMENTS_FILE=/tmp/requirements.txt
+cat << EOF > $PIP_REQUIREMENTS_FILE
+python_moztelemetry
+python_mozaggregator
+montecarlino
+jupyter-notebook-gist==0.3.1
+jupyter-spark>=0.3.0,<1.0.0
+runipy
+boto3
+parquet2hive
+py4j==0.8.2.1
+pyliblzma==0.5.3
+plotly==1.6.16
+seaborn==0.6.0
+EOF
+$ANACONDAPATH/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $ANACONDA_SCRIPT
+rm $PIP_REQUIREMENTS_FILE
 
 # Add public key
 if [ -n "$PUBLIC_KEY" ]; then
@@ -124,8 +141,14 @@ echo "${HIVE_CONFIG_SCRIPT}" | tee /tmp/hive_config.sh
 chmod u+x /tmp/hive_config.sh
 bash /tmp/hive_config.sh &
 
-# Launch IPython
+# Configure Jupyter
+jupyter nbextension enable --py widgetsnbextension --user
+jupyter serverextension enable --py jupyter_spark --user
+jupyter nbextension install --py jupyter_spark --user
+jupyter nbextension enable --py jupyter_spark --user
+
+# Launch Jupyter Notebook
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Telemetry%20Hello%20World.ipynb
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Longitudinal%20Dataset%20Tutorial.ipynb
-ipython notebook --browser=false&
+jupyter notebook --no-browser &

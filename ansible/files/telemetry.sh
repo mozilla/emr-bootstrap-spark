@@ -61,7 +61,7 @@ cat << EOF > $PIP_REQUIREMENTS_FILE
 python_moztelemetry
 python_mozaggregator
 montecarlino
-jupyter-notebook-gist==0.3.1
+jupyter-notebook-gist>=0.4.0,<1.0.0
 jupyter-spark>=0.3.0,<1.0.0
 runipy
 boto3
@@ -143,6 +143,11 @@ bash /tmp/hive_config.sh &
 
 # Configure Jupyter
 jupyter nbextension enable --py widgetsnbextension --user
+
+jupyter serverextension enable --py jupyter_notebook_gist --user
+jupyter nbextension install --py jupyter_notebook_gist --user
+jupyter nbextension enable --py jupyter_notebook_gist --user
+
 jupyter serverextension enable --py jupyter_spark --user
 jupyter nbextension install --py jupyter_spark --user
 jupyter nbextension enable --py jupyter_spark --user

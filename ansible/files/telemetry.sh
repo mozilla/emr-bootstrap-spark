@@ -98,7 +98,7 @@ sudo chmod a+rw /mnt/var/log/spark
 touch /mnt/var/log/spark/spark.log
 
 # Setup R environment
-wget -nc https://mran.revolutionanalytics.com/install/RRO-3.2.1-el6.x86_64.tar.gz
+wget -nc https://mran.microsoft.com/install/RRO-3.2.1-el6.x86_64.tar.gz
 tar -xzf RRO-3.2.1-el6.x86_64.tar.gz
 rm RRO-3.2.1-el6.x86_64.tar.gz
 cd RRO-3.2.1; sudo ./install.sh; cd ..

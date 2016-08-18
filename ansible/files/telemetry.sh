@@ -134,8 +134,8 @@ mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/plotly_credentials $H
 
 # Load Parquet datasets after Hive metastore is up
 HIVE_CONFIG_SCRIPT=$(cat <<EOF
-while ! hive -e 'show tables' > /dev/null; do sleep 1; done
-/home/hadoop/anaconda2/bin/parquet2hive s3://telemetry-parquet/longitudinal | bash
+while ! echo exit | nc localhost 9083; do sleep 5; done
+/home/hadoop/anaconda2/bin/parquet2hive s3://telemetry-parquet/longitudinal --use-last-versions 5 | bash
 exit 0
 EOF
 )

@@ -125,7 +125,11 @@ aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/jupyter_notebook_config.py ~/.jupyter
 ipython profile create
 cat << EOF > $HOME/.ipython/profile_default/startup/00-pyspark-setup.py
 import os
+import sys
+
 spark_home = os.environ.get('SPARK_HOME', None)
+sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-src.zip'))
+
 execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))
 EOF
 

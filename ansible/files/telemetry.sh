@@ -121,18 +121,6 @@ source $HOME/.bashrc
 # Setup Jupyter notebook
 aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 
-# Setup IPython
-ipython profile create
-cat << EOF > $HOME/.ipython/profile_default/startup/00-pyspark-setup.py
-import os
-import sys
-
-spark_home = os.environ.get('SPARK_HOME', None)
-sys.path.insert(0, os.path.join(spark_home, 'python/lib/py4j-src.zip'))
-
-execfile(os.path.join(spark_home, 'python/pyspark/shell.py'))
-EOF
-
 # Setup plotly
 mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/plotly_credentials $HOME/.plotly/.credentials
 
@@ -162,4 +150,4 @@ jupyter nbextension enable --py jupyter_spark --user
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Telemetry%20Hello%20World.ipynb
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Longitudinal%20Dataset%20Tutorial.ipynb
-jupyter notebook --no-browser &
+PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser" pyspark &

@@ -150,4 +150,13 @@ jupyter nbextension enable --py jupyter_spark --user
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Telemetry%20Hello%20World.ipynb
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Longitudinal%20Dataset%20Tutorial.ipynb
-PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser" /usr/lib/spark/bin/pyspark &
+
+cat << EOF > /tmp/run_jupyter.sh
+#!/bin/bash
+
+while ! ((yum list spark-python | grep 'spark-python.noarch') && [ -f /usr/bin/pyspark ]); do sleep 60; done
+
+PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser" /usr/bin/pyspark
+EOF
+chmod +x /tmp/run_jupyter.sh
+/tmp/run_jupyter.sh &

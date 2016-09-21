@@ -56,6 +56,8 @@ mkdir -p $HOME/analyses && cd $HOME/analyses
 mkdir -p logs
 mkdir -p output
 
+EXIT_CODE=0
+
 if [ -n "$JAR" ]; then
     # Run JAR
     aws s3 cp "$JAR" .
@@ -70,8 +72,16 @@ else
     aws s3 cp "$NOTEBOOK" .
     cd output
     echo "Beginning job $JOB_NAME ..." >> "$PLOG"
-    runipy "../${NOTEBOOK##*/}" "${NOTEBOOK##*/}" --pylab >> "$PLOG" 2>&1
+
+    NOTEBOOK_NAME=${NOTEBOOK##*/}
+    PYSPARK_DRIVER_PYTHON=jupyter \
+    PYSPARK_DRIVER_PYTHON_OPTS="nbconvert --to python --log-level=10 --execute ../${NOTEBOOK_NAME} --allow-errors --output ${NOTEBOOK_NAME}" \
+    pyspark
     EXIT_CODE=$?
+    if [ $EXIT_CODE != 0 ] || [ "`grep  '\"output_type\": \"error\"' $NOTEBOOK_NAME`" ] ;then
+        PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS="nbconvert --to markdown --stdout ${NOTEBOOK_NAME}" pyspark
+        EXIT_CODE=1
+    fi
     echo "Finished job $JOB_NAME" >> "$PLOG"
     echo "'$MAIN' exited with code $EXIT_CODE" >> "$PLOG"
 fi
@@ -100,3 +110,4 @@ done
 cd ..
 gzip "$LOG"
 aws s3 cp "${LOG}.gz" "$S3_BASE/logs/$(basename "$LOG").gz" --content-type "text/plain" --content-encoding gzip
+exit $EXIT_CODE

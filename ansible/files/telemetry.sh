@@ -65,7 +65,6 @@ python_mozaggregator
 montecarlino
 jupyter-notebook-gist>=0.4.0,<1.0.0
 jupyter-spark>=0.3.0,<1.0.0
-runipy
 boto3
 parquet2hive
 py4j==0.8.2.1

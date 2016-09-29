@@ -79,7 +79,7 @@ else
     pyspark
     EXIT_CODE=$?
     if [ $EXIT_CODE != 0 ] || [ "`grep  '\"output_type\": \"error\"' $NOTEBOOK_NAME`" ] ;then
-        PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS="nbconvert --to markdown --stdout ${NOTEBOOK_NAME}" pyspark
+        PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS="nbconvert --ExecutePreprocessor.timeout=-1 --to markdown --stdout ${NOTEBOOK_NAME}" pyspark
         EXIT_CODE=1
     fi
     echo "Finished job $JOB_NAME" >> "$PLOG"

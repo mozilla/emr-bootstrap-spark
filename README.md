@@ -36,7 +36,7 @@ aws emr create-cluster \
   --release-label emr-4.5.0 \
   --applications Name=Spark Name=Hive \
   --bootstrap-actions Path=s3://${SPARK_BUCKET}/bootstrap/telemetry.sh \
-  --configurations https://s3-us-west-2.amazonaws.com/${SPARK_BUCKET}/configuration/configuration.json 
+  --configurations https://s3-us-west-2.amazonaws.com/${SPARK_BUCKET}/configuration/configuration.json \
   --auto-terminate \
   --steps Type=CUSTOM_JAR,Name=CustomJAR,ActionOnFailure=TERMINATE_JOB_FLOW,Jar=s3://us-west-2.elasticmapreduce/libs/script-runner/script-runner.jar,Args=\["s3://${SPARK_BUCKET}/batch.sh","--job-name","foo","--notebook","s3://${CODE_BUCKET}/jobs/foo/Telemetry Hello World.ipynb","--data-bucket","${DATA_BUCKET}"\]
 ```

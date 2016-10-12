@@ -13,7 +13,22 @@ DRIVER_MIN_HEAP=1000M
 DRIVER_MEMORY=$EXECUTOR_MEMORY
 
 # Enable EPEL
-sudo yum-config-manager --enable epel
+mirror="https://s3-us-west-2.amazonaws.com/net-mozaws-prod-us-west-2-ops-rpmrepo-mirror"
+sudo tee /etc/yum.repos.d/epel.repo <<EOF
+[epel]
+name=Extra Packages for Enterprise Linux 6 - \$basearch
+baseurl=${mirror}/epel/6/\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux 6 - $basearch - Debug
+baseurl=${mirror}/epel/6/\$basearch/debug
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+gpgcheck=1
+EOF
 sudo yum clean all
 sudo yum makecache
 

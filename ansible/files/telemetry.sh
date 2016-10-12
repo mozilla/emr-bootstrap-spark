@@ -14,6 +14,8 @@ DRIVER_MEMORY=$EXECUTOR_MEMORY
 
 # Enable EPEL
 sudo yum-config-manager --enable epel
+sudo yum clean all
+sudo yum makecache
 
 # Install packages
 curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo

@@ -72,7 +72,7 @@ done
 
 # Setup Python
 export ANACONDAPATH=$HOME/anaconda2
-ANACONDA_SCRIPT=Anaconda2-4.0.0-Linux-x86_64.sh
+ANACONDA_SCRIPT=Anaconda2-4.2.0-Linux-x86_64.sh
 wget --no-clobber --no-verbose http://repo.continuum.io/archive/$ANACONDA_SCRIPT
 bash $ANACONDA_SCRIPT -b
 

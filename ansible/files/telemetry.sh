@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cp -r /home/hadoop /mnt
+sudo mount --bind --verbose /mnt/hadoop /home/hadoop
+
 # logging for any errors during bootstrapping
 exec > >(tee -i /var/log/bootstrap-script.log)
 exec 2>&1

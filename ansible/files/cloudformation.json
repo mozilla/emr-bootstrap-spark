@@ -53,7 +53,8 @@
                     "arn:aws:s3:::mozillametricsemrscripts",
                     "arn:aws:s3:::mozillametricsfhrsamples",
                     "arn:aws:s3:::mozilla-metrics",
-                    "arn:aws:s3:::org-allizom-telemetry-crashes"
+                    "arn:aws:s3:::org-allizom-telemetry-crashes",
+                    "arn:aws:s3:::org-mozilla-telemetry-crashes"
                   ]
                 },
                 {
@@ -68,7 +69,8 @@
                     "arn:aws:s3:::mozillametricsemrscripts/*",
                     "arn:aws:s3:::mozillametricsfhrsamples/*",
                     "arn:aws:s3:::mozilla-metrics/*",
-                    "arn:aws:s3:::org-allizom-telemetry-crashes/*"
+                    "arn:aws:s3:::org-allizom-telemetry-crashes/*",
+                    "arn:aws:s3:::org-mozilla-telemetry-crashes/*"
                   ]
                 },
                 {

@@ -172,6 +172,7 @@ jupyter nbextension enable --py jupyter_spark --user
 mkdir -p $HOME/analyses && cd $HOME/analyses
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Telemetry%20Hello%20World.ipynb
 wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/Longitudinal%20Dataset%20Tutorial.ipynb
+wget -nc https://raw.githubusercontent.com/mozilla/emr-bootstrap-spark/master/examples/New%20Report.ipynb
 
 cat << EOF > /tmp/run_jupyter.sh
 #!/bin/bash

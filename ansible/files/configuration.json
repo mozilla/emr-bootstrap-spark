@@ -1,5 +1,10 @@
 [
   {
+    "Classification": "hdfs-site",
+    "Properties": {
+      "dfs.replication": "1"
+    }
+  }, {
     "Classification": "yarn-site",
     "Properties": {
       "yarn.nodemanager.pmem-check-enabled": "false",

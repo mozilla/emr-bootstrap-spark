@@ -81,7 +81,7 @@ bash $ANACONDA_SCRIPT -b
 
 PIP_REQUIREMENTS_FILE=/tmp/requirements.txt
 cat << EOF > $PIP_REQUIREMENTS_FILE
-python_moztelemetry>=0.4,<0.5
+python_moztelemetry>=0.5,<1.0.0
 python_mozaggregator
 montecarlino
 jupyter-notebook-gist>=0.4.0,<1.0.0

@@ -26,8 +26,14 @@
     - name: create bucket
       s3: bucket={{bucket}} region={{region}} mode=create
 
-    - name: copy EMR steps
+    - name: copy EMR batch step
       s3: bucket={{bucket}} region={{region}} object=steps/batch.sh src={{playbook_dir}}/files/batch.sh mode=put
+
+    - name: copy zeppelin configuration
+      s3: bucket={{bucket}} region={{region}} object=configuration/zeppelin/interpreter.json src={{playbook_dir}}/files/zeppelin/interpreter.json mode=put
+
+    - name: copy EMR zeppelin step
+      s3: bucket={{bucket}} region={{region}} object=steps/zeppelin/zeppelin.sh src={{playbook_dir}}/files/zeppelin/zeppelin.sh mode=put
 
     - name: copy EMR bootstrap script
       s3: bucket={{bucket}} region={{region}} object=bootstrap/telemetry.sh src={{playbook_dir}}/files/telemetry.sh mode=put

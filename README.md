@@ -15,10 +15,11 @@ aws emr create-cluster \
   --instance-count 1 \
   --service-role EMR_DefaultRole \
   --ec2-attributes KeyName=${KEY_NAME},InstanceProfile=${SPARK_PROFILE} \
-  --release-label emr-4.5.0 \
-  --applications Name=Spark Name=Hive \
+  --release-label emr-5.2.1 \
+  --applications Name=Spark Name=Hive Name=Zeppelin \
   --bootstrap-actions Path=s3://${SPARK_BUCKET}/bootstrap/telemetry.sh \
-  --configurations https://s3-us-west-2.amazonaws.com/${SPARK_BUCKET}/configuration/configuration.json 
+  --configurations https://s3-us-west-2.amazonaws.com/${SPARK_BUCKET}/configuration/configuration.json \
+  --steps Type=CUSTOM_JAR,Name=CustomJAR,ActionOnFailure=TERMINATE_JOB_FLOW,Jar=s3://us-west-2.elasticmapreduce/libs/script-runner/script-runner.jar,Args=\["s3://${SPARK_BUCKET}/steps/zeppelin/zeppelin.sh"\]
 ```
 
 ## Batch job
@@ -33,7 +34,7 @@ aws emr create-cluster \
   --instance-count 1 \
   --service-role EMR_DefaultRole \
   --ec2-attributes KeyName=${KEY_NAME},InstanceProfile=${SPARK_PROFILE} \
-  --release-label emr-4.5.0 \
+  --release-label emr-5.2.1 \
   --applications Name=Spark Name=Hive \
   --bootstrap-actions Path=s3://${SPARK_BUCKET}/bootstrap/telemetry.sh \
   --configurations https://s3-us-west-2.amazonaws.com/${SPARK_BUCKET}/configuration/configuration.json \

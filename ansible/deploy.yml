@@ -1,16 +1,11 @@
 - name: provision aws resources
   hosts: localhost
-  remote_user: ubuntu
-  vars:
-    - region: us-west-2
-    - bucket: telemetry-spark-emr-2
-
   tasks:
     - name: launch cloudformation
       cloudformation:
         stack_name: "telemetry-spark-cloudformation"
         state: "present"
-        region: "us-west-2"
+        region: "{{telemetry_analysis_region}}"
         disable_rollback: true
         template: "{{playbook_dir}}/files/cloudformation.json"
         tags:
@@ -24,20 +19,17 @@
       register: cloudformation
 
     - name: create bucket
-      s3: bucket={{bucket}} region={{region}} mode=create
+      s3: bucket={{telemetry_analysis_spark_emr_bucket}} region={{telemetry_analysis_region}} mode=create
 
-    - name: copy EMR batch step
-      s3: bucket={{bucket}} region={{region}} object=steps/batch.sh src={{playbook_dir}}/files/batch.sh mode=put
+    - name: copy private EMR files
+      include: render_and_copy_to_s3.yml file={{item}} permission="private"
+      with_items:
+        - steps/batch.sh
+        - steps/zeppelin/zeppelin.sh
+        - configuration/zeppelin/interpreter.json
+        - bootstrap/telemetry.sh
 
-    - name: copy zeppelin configuration
-      s3: bucket={{bucket}} region={{region}} object=configuration/zeppelin/interpreter.json src={{playbook_dir}}/files/zeppelin/interpreter.json mode=put
-
-    - name: copy EMR zeppelin step
-      s3: bucket={{bucket}} region={{region}} object=steps/zeppelin/zeppelin.sh src={{playbook_dir}}/files/zeppelin/zeppelin.sh mode=put
-
-    - name: copy EMR bootstrap script
-      s3: bucket={{bucket}} region={{region}} object=bootstrap/telemetry.sh src={{playbook_dir}}/files/telemetry.sh mode=put
-
-    - name: copy EMR configuration
-      s3: bucket={{bucket}} region={{region}} object=configuration/configuration.json src={{playbook_dir}}/files/configuration.json mode=put permission=public-read
-
+    - name: copy public EMR files
+      include: render_and_copy_to_s3.yml file={{item}} permission="public-read"
+      with_items:
+        - configuration/configuration.json

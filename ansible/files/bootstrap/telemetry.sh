@@ -9,7 +9,7 @@ exec 2>&1
 
 # we won't use `set -e` because that means that AWS would terminate the instance and we wouldn't get logs for why it failed
 
-TELEMETRY_CONF_BUCKET=s3://telemetry-spark-emr-2
+TELEMETRY_CONF_BUCKET=s3://{{telemetry_analysis_spark_emr_bucket}}
 MEMORY_OVERHEAD=7000  # Tuned for c3.4xlarge
 EXECUTOR_MEMORY=15000M
 DRIVER_MIN_HEAP=1000M
@@ -74,7 +74,7 @@ while [ $# -gt 0 ]; do
 done
 
 # Setup Python
-export ANACONDAPATH=$HOME/anaconda2
+export ANACONDAPATH={{telemetry_analysis_anaconda_path}}
 ANACONDA_SCRIPT=Anaconda2-4.2.0-Linux-x86_64.sh
 wget --no-clobber --no-verbose http://repo.continuum.io/archive/$ANACONDA_SCRIPT
 bash $ANACONDA_SCRIPT -b

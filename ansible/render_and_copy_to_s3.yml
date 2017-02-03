@@ -1,0 +1,20 @@
+- block:
+    - name: make temp file for template {{file}}
+      shell: mktemp /tmp/template.XXXXXX
+      register: temp
+
+    - name: render template
+      template: src={{playbook_dir}}/files/{{file}} dest={{temp.stdout}}
+
+    - name: upload template
+      s3:
+        bucket: "{{telemetry_analysis_spark_emr_bucket}}"
+        region: "{{telemetry_analysis_region}}"
+        mode: put
+        object: "{{file}}"
+        src: "{{temp.stdout}}"
+        permission: "{{permission}}"
+
+  always:
+      - name: clean up temp file
+        file: path={{ temp.stdout }} state=absent

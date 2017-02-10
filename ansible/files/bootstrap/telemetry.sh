@@ -88,6 +88,7 @@ jupyter-notebook-gist>=0.4.0,<1.0.0
 jupyter-spark>=0.3.0,<1.0.0
 boto3
 parquet2hive
+protobuf==3.1.0
 py4j==0.8.2.1
 pyliblzma==0.5.3
 plotly==1.6.16

@@ -116,6 +116,7 @@ fi
 sudo mkdir -p /mnt/var/log/spark
 sudo chmod a+rw /mnt/var/log/spark
 touch /mnt/var/log/spark/spark.log
+sudo chown spark:spark /mnt/var/log/spark/spark.log
 
 # Setup R environment
 wget -nc https://mran.microsoft.com/install/RRO-3.2.1-el6.x86_64.tar.gz

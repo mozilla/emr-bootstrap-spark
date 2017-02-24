@@ -10,13 +10,7 @@ sudo aws s3 cp s3://{{telemetry_analysis_spark_emr_bucket}}/configuration/zeppel
 sudo chown zeppelin:zeppelin /etc/zeppelin/conf/interpreter.json
 
 # Enable matplotlib support
-conda install -y pyqt=5
-sudo yum -y install libXdmcp xorg-x11-server-Xvfb
-
-sudo pkill Xvfb
-nohup Xvfb &
-
-echo 'export DISPLAY=:0.0' | sudo tee -a /etc/zeppelin/conf/zeppelin-env.sh
+echo 'export MPLBACKEND="agg"' | sudo tee -a /etc/zeppelin/conf/zeppelin-env.sh
 
 # Preload Scala packages
 repositories="https://oss.sonatype.org/content/repositories/snapshots"

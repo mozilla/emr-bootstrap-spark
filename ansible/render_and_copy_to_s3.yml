@@ -4,9 +4,11 @@
       register: temp
 
     - name: render template
+      when: temp.stdout is defined
       template: src={{playbook_dir}}/files/{{file}} dest={{temp.stdout}}
 
     - name: upload template
+      when: temp.stdout is defined
       s3:
         bucket: "{{telemetry_analysis_spark_emr_bucket}}"
         region: "{{telemetry_analysis_region}}"
@@ -17,4 +19,5 @@
 
   always:
       - name: clean up temp file
+        when: temp.stdout is defined
         file: path={{ temp.stdout }} state=absent

@@ -34,3 +34,34 @@
       include: render_and_copy_to_s3.yml file={{item}} permission="public-read"
       with_items:
         - configuration/configuration.json
+
+    - name: EFS security group in region us-west-2
+      local_action:
+        module: ec2_group
+        name: atmo-efs-access
+        description: EFS Access
+        region: us-west-2
+        rules:
+          - proto: tcp
+            from_port: 2049
+            to_port: 2049
+            group_name: ElasticMapReduce-master
+          - proto: tcp
+            from_port: 2049
+            to_port: 2049
+            group_name: ElasticMapReduce-slave
+      register: efs_access
+
+    - name: create EFS volume
+      efs:
+        state: present
+        name: ATMO-prod 
+        tags:
+            app: telemetry-analysis
+        targets:
+            - subnet_id: subnet-63f72706
+              security_groups: [ "{{ efs_access.group_id }}" ]
+            - subnet_id: subnet-4228de35
+              security_groups: [ "{{ efs_access.group_id }}" ]
+            - subnet_id: subnet-b2c3d5f4
+              security_groups: [ "{{ efs_access.group_id }}" ]

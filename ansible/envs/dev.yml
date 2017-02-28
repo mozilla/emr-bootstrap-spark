@@ -3,4 +3,4 @@ telemetry_analysis_code_bucket: telemetry-analysis-code-2
 telemetry_analysis_spark_emr_bucket: telemetry-spark-emr-2
 telemetry_analysis_public_bucket: telemetry-public-analysis-2
 telemetry_analysis_private_bucket: telemetry-private-analysis-2
-telemetry_analysis_anaconda_path: /mnt/anaconda2
+telemetry_analysis_anaconda_path: /home/hadoop/anaconda2

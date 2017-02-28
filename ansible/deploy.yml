@@ -26,6 +26,7 @@
       with_items:
         - steps/batch.sh
         - steps/zeppelin/zeppelin.sh
+        - steps/zeppelin/note.json
         - configuration/zeppelin/interpreter.json
         - bootstrap/telemetry.sh
 

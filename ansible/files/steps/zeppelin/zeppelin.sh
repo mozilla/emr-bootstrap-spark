@@ -23,6 +23,12 @@ sudo chmod -R o+rw $HOME/.ivy2
 echo "export SPARK_SUBMIT_OPTIONS=\"--repositories $repositories --packages $packages\"" |
     sudo tee -a /etc/zeppelin/conf/zeppelin-env.sh
 
+# Overwrite tutorial notebook
+notebook_dir=/mnt/var/lib/zeppelin/notebook/2CCBQ5HBY/
+sudo mkdir $notebook_dir
+sudo aws s3 cp s3://{{telemetry_analysis_spark_emr_bucket}}/steps/zeppelin/note.json $notebook_dir
+sudo chown -R zeppelin:zeppelin $notebook_dir
+
 # Restart Zeppelin
 sudo stop zeppelin
 sudo start zeppelin

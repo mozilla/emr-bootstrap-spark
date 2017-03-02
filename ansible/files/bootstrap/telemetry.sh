@@ -220,6 +220,17 @@ sudo echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10
 source "$GLOBAL_BASHRC"
 
 
+# Load Parquet datasets after Hive metastore is up
+HIVE_CONFIG_SCRIPT=$(cat <<EOF
+while ! echo exit | nc localhost 9083; do sleep 5; done
+$ANACONDA_PATH/bin/parquet2hive s3://telemetry-parquet/longitudinal --use-last-versions 5 | bash
+exit 0
+EOF
+)
+echo "${HIVE_CONFIG_SCRIPT}" | tee /tmp/hive_config.sh
+chmod u+x /tmp/hive_config.sh
+bash /tmp/hive_config.sh &
+
 # Configure Jupyter
 jupyter nbextension enable --py widgetsnbextension --user
 

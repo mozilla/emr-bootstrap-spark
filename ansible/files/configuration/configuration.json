@@ -37,10 +37,5 @@
       "log4j.appender.FILE.layout": "org.apache.log4j.PatternLayout",
       "log4j.appender.FILE.layout.ConversionPattern": "%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n"
     }
-  }, {
-    "Classification": "spark-hive-site",
-    "Properties": {
-       "hive.metastore.uris": "thrift://{{metastore_dns}}:9083"
-    }
   }
 ]

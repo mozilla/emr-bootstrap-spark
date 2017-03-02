@@ -75,7 +75,7 @@ else
 
     NOTEBOOK_NAME=${NOTEBOOK##*/}
     PYSPARK_DRIVER_PYTHON=jupyter \
-    PYSPARK_DRIVER_PYTHON_OPTS="nbconvert --ExecutePreprocessor.timeout=-1 --to notebook --log-level=10 --execute \"../${NOTEBOOK_NAME}\" --allow-errors --output-dir ./ " \
+    PYSPARK_DRIVER_PYTHON_OPTS="nbconvert --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python2 --to notebook --log-level=10 --execute \"../${NOTEBOOK_NAME}\" --allow-errors --output-dir ./ " \
     pyspark
     EXIT_CODE=$?
     if [ $EXIT_CODE != 0 ] || [ "`grep  '\"output_type\": \"error\"' \"$NOTEBOOK_NAME\"`" ] ;then

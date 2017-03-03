@@ -87,6 +87,10 @@ if [ -n "$EMAIL" ] && [ -n "$EFS_DNS" ] && "$IS_MASTER" ; then
     sudo chmod 700 "$HOME/.ssh/authorized_keys"
 
 elif "$IS_MASTER" ; then
+    # if non-efs, mount $HOME on /mnt
+    cp -r -p /home/hadoop /mnt
+    sudo mount --bind --verbose /mnt/hadoop /home/hadoop
+
     mkdir -p $HOME/analyses
     SETUP_HOME_DIR=true
 fi

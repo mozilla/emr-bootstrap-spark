@@ -35,6 +35,9 @@
         - steps/batch.sh
         - steps/zeppelin/zeppelin.sh
         - steps/zeppelin/note.json
+        - steps/error_aggregator/launch_error_aggregator.sh
+        - configuration/error_aggregator/error_aggregator.sh
+        - configuration/supervisord/supervisord.conf
         - configuration/zeppelin/interpreter.json
         - bootstrap/telemetry.sh
 

@@ -331,6 +331,12 @@
         ]
       }
     },
+    "SparkStreamingSecurityGroup" : {
+         "Type" : "AWS::EC2::SecurityGroup",
+         "Properties" : {
+             "GroupDescription" : "Kafka telemetry instance access"
+         }
+     },
     "TelemetrySparkInstanceProfile": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {

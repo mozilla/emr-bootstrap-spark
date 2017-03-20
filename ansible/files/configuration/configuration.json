@@ -21,7 +21,7 @@
       "spark.local.dir": "/mnt,/mnt1",
       "spark.driver.maxResultSize": "4g",
       "spark.driver.memory": "4g",
-      "spark.akka.frameSize": "512",
+      "spark.rpc.message.maxSize": "512",
       "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
       "spark.sql.sources.partitionColumnTypeInference.enabled": "false",
       "spark.kryoserializer.buffer.max": "256m"

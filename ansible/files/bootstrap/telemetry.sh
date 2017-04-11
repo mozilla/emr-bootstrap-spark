@@ -220,6 +220,7 @@ sudo echo "export PYSPARK_DRIVER_PYTHON_OPTS=console" >> "$GLOBAL_BASHRC"
 sudo echo "export PATH=$ANACONDA_PATH/bin:\$PATH" >> "$GLOBAL_BASHRC"
 sudo echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY -Xms$DRIVER_MIN_HEAP\"" >> "$GLOBAL_BASHRC"
 sudo echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --executor-memory $EXECUTOR_MEMORY --conf spark.yarn.executor.memoryOverhead=$MEMORY_OVERHEAD pyspark-shell\"" >> "$GLOBAL_BASHRC"
+sudo echo "export HIVE_SERVER={{metastore_dns}}" >> "$GLOBAL_BASHRC"
 
 source "$GLOBAL_BASHRC"
 

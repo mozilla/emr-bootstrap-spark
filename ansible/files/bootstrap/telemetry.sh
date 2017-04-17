@@ -136,9 +136,13 @@ sudo yum clean all
 sudo yum makecache
 
 # Install packages
-curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
 sudo yum -y install git jq htop tmux libffi-devel aws-cli postgresql-devel zsh snappy-devel readline-devel emacs nethogs w3m
-sudo yum -y install --nogpgcheck sbt # bintray doesn't sign packages for some reason, this isn't ideal but is the only way to install sbt
+
+# Install sbt
+sbt_version=0.13.15
+aws s3 cp $TELEMETRY_CONF_BUCKET/sbt-$sbt_version.rpm $HOME/sbt.rpm
+sudo yum -y localinstall $HOME/sbt.rpm
+rm $HOME/sbt.rpm
 
 # Setup Python
 export ANACONDA_PATH={{telemetry_analysis_anaconda_path}}

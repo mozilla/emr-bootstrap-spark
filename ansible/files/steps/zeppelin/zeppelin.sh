@@ -3,7 +3,7 @@ set -x
 
 # Configure Spark
 chmod o+w /mnt /mnt1
-source $HOME/.bashrc
+source /etc/profile.d/atmo.sh
 
 echo "export PYSPARK_PYTHON=$PYSPARK_PYTHON" | sudo tee -a /etc/zeppelin/conf/zeppelin-env.sh
 sudo aws s3 cp s3://{{telemetry_analysis_spark_emr_bucket}}/configuration/zeppelin/interpreter.json /etc/zeppelin/conf/interpreter.json

@@ -325,6 +325,24 @@
                     "S3:*"
                   ],
                   "Effect": "Allow"
+                },
+                {
+                  "Resource": [
+                    "arn:aws:s3:::telemetry-backfill"
+                  ],
+                  "Action": [
+                    "*"
+                  ],
+                  "Effect": "Allow"
+                },
+                {
+                  "Resource": [
+                    "arn:aws:s3:::telemetry-backfill/*"
+                  ],
+                  "Action": [
+                    "S3:*"
+                  ],
+                  "Effect": "Allow"
                 }
               ]
             }

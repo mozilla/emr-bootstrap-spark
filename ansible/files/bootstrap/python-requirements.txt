@@ -1,0 +1,12 @@
+python_moztelemetry>=0.5,<1.0.0
+python_mozaggregator
+montecarlino
+jupyter-notebook-gist>=0.4.0,<1.0.0
+jupyter-spark>=0.3.0,<1.0.0
+boto3
+parquet2hive
+protobuf==3.1.0
+py4j==0.8.2.1
+pyliblzma==0.5.3
+plotly==1.6.16
+seaborn==0.6.0

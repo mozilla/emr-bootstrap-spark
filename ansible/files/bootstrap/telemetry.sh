@@ -6,8 +6,6 @@ exec 2>&1
 
 # we won't use `set -e` because that means that AWS would terminate the instance and we wouldn't get logs for why it failed
 
-TELEMETRY_CONF_BUCKET=s3://{{telemetry_analysis_spark_emr_bucket}}
-
 # Check for master node
 IS_MASTER=true
 if [ -f /mnt/var/lib/info/instance.json ]
@@ -152,21 +150,7 @@ wget --no-clobber --no-verbose -P /mnt http://repo.continuum.io/archive/$ANACOND
 bash /mnt/$ANACONDA_SCRIPT -b -p $ANACONDA_PATH
 
 PIP_REQUIREMENTS_FILE=/tmp/requirements.txt
-cat << EOF > $PIP_REQUIREMENTS_FILE
-python_moztelemetry>=0.5,<1.0.0
-python_mozaggregator
-montecarlino
-jupyter-notebook-gist>=0.4.0,<1.0.0
-jupyter-spark>=0.3.0,<1.0.0
-boto3
-parquet2hive
-protobuf==3.1.0
-py4j==0.8.2.1
-pyliblzma==0.5.3
-plotly==1.6.16
-seaborn==0.6.0
-EOF
-
+aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/python-requirements.txt $PIP_REQUIREMENTS_FILE
 $ANACONDA_PATH/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm /mnt/$ANACONDA_SCRIPT
 rm $PIP_REQUIREMENTS_FILE

@@ -1,0 +1,4 @@
+search: False
+label_prs: update
+requirements:
+  - ansible/files/bootstrap/python-requirements.txt

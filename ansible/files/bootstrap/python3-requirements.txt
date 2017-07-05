@@ -1,0 +1,1 @@
+python-zeppelin>=1.2,<2.0

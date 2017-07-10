@@ -13,6 +13,9 @@
     },
     "TelemetryAnalysisPrivateBucket": {
       "Type": "String"
+    },
+    "TelemetryAnalysisIAMRole": {
+      "Type": "String"
     }
   },
   "Resources": {
@@ -36,7 +39,7 @@
         },
         "Policies": [
           {
-            "PolicyName": "telemetry-spark-emr",
+            "PolicyName": {"Ref": "TelemetryAnalysisIAMRole"},
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [

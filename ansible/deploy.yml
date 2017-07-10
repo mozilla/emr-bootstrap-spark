@@ -25,6 +25,7 @@
           TelemetryAnalysisSparkEMRBucket: "{{telemetry_analysis_spark_emr_bucket}}"
           TelemetryAnalysisPublicBucket: "{{telemetry_analysis_public_bucket}}"
           TelemetryAnalysisPrivateBucket: "{{telemetry_analysis_private_bucket}}"
+          TelemetryAnalysisIAMRole: "{{telemetry_analysis_iam_role}}"
 
     - name: create bucket
       s3: bucket={{telemetry_analysis_spark_emr_bucket}} region={{telemetry_analysis_region}} mode=create

@@ -107,10 +107,10 @@ if [ "$SETUP_HOME_DIR" = true ] ; then
     mkdir -p $HOME/R_libs
 
     # Setup plotly
-    mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/plotly_credentials $HOME/.plotly/.credentials
+    mkdir -p $HOME/.plotly && aws s3 cp $TELEMETRY_CONF_BUCKET/credentials/plotly $HOME/.plotly/.credentials
 
     # Setup Jupyter notebook
-    aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+    aws s3 cp $TELEMETRY_CONF_BUCKET/credentials/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 fi
 
 # Enable EPEL

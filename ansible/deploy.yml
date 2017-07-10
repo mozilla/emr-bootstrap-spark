@@ -12,7 +12,7 @@
 
     - name: launch cloudformation
       cloudformation:
-        stack_name: "telemetry-spark-cloudformation"
+        stack_name: "{{stack_name}}"
         state: "present"
         region: "{{telemetry_analysis_region}}"
         disable_rollback: true

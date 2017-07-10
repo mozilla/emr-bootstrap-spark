@@ -14,6 +14,9 @@
     "TelemetryAnalysisPrivateBucket": {
       "Type": "String"
     },
+    "TelemetryAnalysisLogsBucket": {
+      "Type": "String"
+    },
     "TelemetryAnalysisIAMRole": {
       "Type": "String"
     }
@@ -251,6 +254,29 @@
                           "arn:aws:s3:::",
                           {
                             "Ref": "TelemetryAnalysisPrivateBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisLogsBucket"
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisLogsBucket"
                           },
                           "/*"
                         ]

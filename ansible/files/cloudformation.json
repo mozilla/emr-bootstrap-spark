@@ -50,68 +50,30 @@
                   "Effect": "Allow",
                   "Action": [
                     "S3:ListBucket",
-                    "s3:GetBucketLocation"
-                  ],
-                  "Resource": [
-                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-data",
-                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-metadata",
-                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
-                    "arn:aws:s3:::net-mozaws-prod-us-west-2-autopush-logs",
-                    "arn:aws:s3:::mozillametricsemrscripts",
-                    "arn:aws:s3:::mozillametricsfhrsamples",
-                    "arn:aws:s3:::mozilla-metrics",
-                    "arn:aws:s3:::org-allizom-telemetry-crashes",
-                    "arn:aws:s3:::org-mozilla-telemetry-crashes",
-                    "arn:aws:s3:::net-mozaws-prod-cliqz"
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
+                    "s3:GetBucketLocation",
                     "S3:Get*"
                   ],
                   "Resource": [
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-data",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-data/*",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-metadata",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-metadata/*",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-autopush-logs",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-autopush-logs/*",
+                    "arn:aws:s3:::mozillametricsemrscripts",
                     "arn:aws:s3:::mozillametricsemrscripts/*",
+                    "arn:aws:s3:::mozillametricsfhrsamples",
                     "arn:aws:s3:::mozillametricsfhrsamples/*",
+                    "arn:aws:s3:::mozilla-metrics",
                     "arn:aws:s3:::mozilla-metrics/*",
+                    "arn:aws:s3:::org-allizom-telemetry-crashes",
                     "arn:aws:s3:::org-allizom-telemetry-crashes/*",
+                    "arn:aws:s3:::org-mozilla-telemetry-crashes",
                     "arn:aws:s3:::org-mozilla-telemetry-crashes/*",
+                    "arn:aws:s3:::net-mozaws-prod-cliqz",
                     "arn:aws:s3:::net-mozaws-prod-cliqz/*"
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "sdb:*"
-                  ],
-                  "Resource": [
-                    "*"
-                  ]
-                },
-                {
-                  "Sid": "Stmt1430246788000",
-                  "Effect": "Allow",
-                  "Action": [
-                    "elasticmapreduce:TerminateJobFlows"
-                  ],
-                  "Resource": [
-                    "*"
-                  ]
-                },
-                {
-                  "Sid": "Stmt1430246816000",
-                  "Effect": "Allow",
-                  "Action": [
-                    "elasticmapreduce:Describe*",
-                    "ec2:Describe*",
-                    "rds:Describe*"
-                  ],
-                  "Resource": [
-                    "*"
                   ]
                 },
                 {
@@ -259,6 +221,28 @@
                         ]
                       ]
                     },
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*",
+                    "arn:aws:s3:::net-mozaws-prod-metrics-data",
+                    "arn:aws:s3:::net-mozaws-prod-metrics-data/*",
+                    "arn:aws:s3:::mozilla-metrics",
+                    "arn:aws:s3:::mozilla-metrics/*"
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action":[
+                    "s3:*"
+                  ],
+                  "Resource":[
+                    "arn:aws:s3:::telemetry-backfill",
+                    "arn:aws:s3:::telemetry-backfill/*",
+                    "arn:aws:s3:::telemetry-airflow",
+                    "arn:aws:s3:::telemetry-airflow/*",
+                    "arn:aws:s3:::telemetry-test-bucket",
+                    "arn:aws:s3:::telemetry-test-bucket/*",
+                    "arn:aws:s3:::telemetry-parquet",
+                    "arn:aws:s3:::telemetry-parquet/*",
                     {
                       "Fn::Join": [
                         "",
@@ -281,13 +265,38 @@
                           "/*"
                         ]
                       ]
-                    },
-                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis",
-                    "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*",
-                    "arn:aws:s3:::net-mozaws-prod-metrics-data",
-                    "arn:aws:s3:::net-mozaws-prod-metrics-data/*",
-                    "arn:aws:s3:::mozilla-metrics",
-                    "arn:aws:s3:::mozilla-metrics/*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sdb:*"
+                  ],
+                  "Resource": [
+                    "*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1430246788000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "elasticmapreduce:TerminateJobFlows"
+                  ],
+                  "Resource": [
+                    "*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt1430246816000",
+                  "Effect": "Allow",
+                  "Action": [
+                    "elasticmapreduce:Describe*",
+                    "ec2:Describe*",
+                    "rds:Describe*"
+                  ],
+                  "Resource": [
+                    "*"
                   ]
                 },
                 {
@@ -300,78 +309,6 @@
                   "Resource": [
                     "*"
                   ]
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-parquet"
-                  ],
-                  "Action": [
-                    "*"
-                  ],
-                  "Effect": "Allow"
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-parquet/*"
-                  ],
-                  "Action": [
-                    "S3:*"
-                  ],
-                  "Effect": "Allow"
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-test-bucket"
-                  ],
-                  "Action": [
-                    "*"
-                  ],
-                  "Effect": "Allow"
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-test-bucket/*"
-                  ],
-                  "Action": [
-                    "S3:*"
-                  ],
-                  "Effect": "Allow"
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-airflow"
-                  ],
-                  "Action": [
-                    "*"
-                  ],
-                  "Effect": "Allow"
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-airflow/*"
-                  ],
-                  "Action": [
-                    "S3:*"
-                  ],
-                  "Effect": "Allow"
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-backfill"
-                  ],
-                  "Action": [
-                    "*"
-                  ],
-                  "Effect": "Allow"
-                },
-                {
-                  "Resource": [
-                    "arn:aws:s3:::telemetry-backfill/*"
-                  ],
-                  "Action": [
-                    "S3:*"
-                  ],
-                  "Effect": "Allow"
                 }
               ]
             }

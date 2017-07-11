@@ -66,9 +66,10 @@
     - name: create EFS volume
       efs:
         state: present
-        name: ATMO-prod 
+        name: "{{efs_creation_token}}"
         tags:
-            app: telemetry-analysis
+            Name: "{{efs_volume_name}}"
+            App: telemetry-analysis
         targets:
             - subnet_id: subnet-63f72706
               security_groups: [ "{{ efs_access.group_id }}" ]

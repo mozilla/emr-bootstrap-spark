@@ -1,4 +1,6 @@
 stack_name: telemetry-spark-cloudformation
+efs_creation_token: console-2f4f1f5b-b69d-4298-97dc-1e1cec4c566d
+efs_volume_name: ATMO-prod
 telemetry_analysis_region: us-west-2
 telemetry_analysis_code_bucket: telemetry-analysis-code-2
 telemetry_analysis_spark_emr_bucket: telemetry-spark-emr-2

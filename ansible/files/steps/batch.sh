@@ -75,6 +75,7 @@ else
 
     NOTEBOOK_NAME=${NOTEBOOK##*/}
     EXTENSION=${NOTEBOOK_NAME##*.}
+    FILE_NAME=${NOTEBOOK_NAME%.*}
     if [ $EXTENSION = "ipynb" ]; then
         # Executes Jupyter notebook
         PYSPARK_DRIVER_PYTHON=jupyter \
@@ -89,13 +90,14 @@ else
     if [ $EXTENSION = "json" ]; then
         # Executes Zeppelin notebook
         source activate zeppelin
-        zeppelin-execute -i ${NOTEBOOK_NAME}
+        zeppelin-execute -i ../${NOTEBOOK_NAME} -o ./note.json
         EXIT_CODE=$?
+        zeppelin-convert -i ../note.json -o ./${FILE_NAME}.md
         if [ $EXIT_CODE != 0 ]; then
-            zeppelin-convert -i note.json
+            cat ${FILE_NAME}.md
             EXIT_CODE=1
         fi
-        deactivate zeppelin
+        source deactivate zeppelin
     fi
 
     echo "Finished job $JOB_NAME" >> "$PLOG"

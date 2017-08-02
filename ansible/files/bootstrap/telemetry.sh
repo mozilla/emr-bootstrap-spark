@@ -161,7 +161,7 @@ source activate zeppelin
 aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/python3-requirements.txt $PIP_REQUIREMENTS_FILE
 pip install -r $PIP_REQUIREMENTS_FILE
 rm $PIP_REQUIREMENTS_FILE
-deactivate zeppelin
+source deactivate zeppelin
 
 AUTH_KEYS_PATH="$HOME/.ssh/authorized_keys"
 

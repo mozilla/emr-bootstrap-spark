@@ -90,9 +90,9 @@ else
     if [ $EXTENSION = "json" ]; then
         # Executes Zeppelin notebook
         source activate zeppelin
-        zeppelin-execute -i ../${NOTEBOOK_NAME} -o ./note.json
+        zeppelin-execute -i ../${NOTEBOOK_NAME} -o ./${NOTEBOOK_NAME}
         EXIT_CODE=$?
-        zeppelin-convert -i ../note.json -o ./${FILE_NAME}.md
+        zeppelin-convert -i ./${NOTEBOOK_NAME} -o ./${FILE_NAME}.md
         if [ $EXIT_CODE != 0 ]; then
             cat ${FILE_NAME}.md
             EXIT_CODE=1

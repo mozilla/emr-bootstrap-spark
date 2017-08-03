@@ -10,3 +10,5 @@ pyliblzma==0.5.3
 python-mozaggregator==0.2.6.8
 python_moztelemetry>=0.5,<1.0.0
 seaborn==0.6.0
+arrow=0.11.0
+feather=0.4.0

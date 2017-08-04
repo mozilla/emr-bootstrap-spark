@@ -94,7 +94,8 @@ else
         EXIT_CODE=$?
         zeppelin-convert -i ./${NOTEBOOK_NAME} -o ./${OUTPUT_FILE_NAME}
         if [ $EXIT_CODE != 0 ]; then
-            cat ${FILE_NAME}.md
+            # If there is an error during execution, the errors will be printed to log
+	    cat ${FILE_NAME}.md
             EXIT_CODE=1
         fi
         source deactivate zeppelin

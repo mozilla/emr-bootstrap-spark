@@ -75,7 +75,7 @@ else
 
     NOTEBOOK_NAME=${NOTEBOOK##*/}
     EXTENSION=${NOTEBOOK_NAME##*.}
-    FILE_NAME=${NOTEBOOK_NAME%.*}
+    OUTPUT_FILE_NAME=${NOTEBOOK_NAME%.*}.md
     if [ $EXTENSION = "ipynb" ]; then
         # Executes Jupyter notebook
         PYSPARK_DRIVER_PYTHON=jupyter \
@@ -92,7 +92,7 @@ else
         source activate zeppelin
         zeppelin-execute -i ../${NOTEBOOK_NAME} -o ./${NOTEBOOK_NAME}
         EXIT_CODE=$?
-        zeppelin-convert -i ./${NOTEBOOK_NAME} -o ./${FILE_NAME}.md
+        zeppelin-convert -i ./${NOTEBOOK_NAME} -o ./${OUTPUT_FILE_NAME}
         if [ $EXIT_CODE != 0 ]; then
             cat ${FILE_NAME}.md
             EXIT_CODE=1

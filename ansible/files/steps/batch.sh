@@ -91,7 +91,7 @@ else
         # Executes Zeppelin notebook
         ANACONDA_PATH={{telemetry_analysis_anaconda_path}}
         source $ANACONDA_PATH/bin/activate zeppelin
-        $CONDA_PREFIX/bin/zeppelin-execute -i ../$NOTEBOOK_NAME -o ./$NOTEBOOK_NAME
+        $CONDA_PREFIX/bin/zeppelin-execute -i ../$NOTEBOOK_NAME -o .
         EXIT_CODE=$?
         $CONDA_PREFIX/bin/zeppelin-convert -i ./$NOTEBOOK_NAME -o ./$OUTPUT_FILE_NAME
         if [ $EXIT_CODE != 0 ]; then

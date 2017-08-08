@@ -89,17 +89,17 @@ else
     fi
     if [ $EXTENSION = "json" ]; then
         # Executes Zeppelin notebook
-        ZEPPELIN_PATH=/mnt/anaconda2/envs/zeppelin
-        source activate zeppelin
-        ${ZEPPELIN_PATH}/bin/zeppelin-execute -i ../${NOTEBOOK_NAME} -o ./${NOTEBOOK_NAME}
+        ANACONDA_PATH={{telemetry_analysis_anaconda_path}}
+        source $ANACONDA_PATH/bin/activate zeppelin
+        $CONDA_PREFIX/bin/zeppelin-execute -i ../$NOTEBOOK_NAME -o ./$NOTEBOOK_NAME
         EXIT_CODE=$?
-        ${ZEPPELIN_PATH}/bin/zeppelin-convert -i ./${NOTEBOOK_NAME} -o ./${OUTPUT_FILE_NAME}
+        $CONDA_PREFIX/bin/zeppelin-convert -i ./$NOTEBOOK_NAME -o ./$OUTPUT_FILE_NAME
         if [ $EXIT_CODE != 0 ]; then
             # If there is an error during execution, the errors will be printed to log
-	    cat ${FILE_NAME}.md
+            cat ${FILE_NAME}.md
             EXIT_CODE=1
         fi
-        source deactivate zeppelin
+        source $ANACONDA_PATH/bin/deactivate zeppelin
     fi
 
     echo "Finished job $JOB_NAME" >> "$PLOG"

@@ -148,20 +148,19 @@ export ANACONDA_PATH={{telemetry_analysis_anaconda_path}}
 ANACONDA_SCRIPT=Anaconda2-4.2.0-Linux-x86_64.sh
 wget --no-clobber --no-verbose -P /mnt http://repo.continuum.io/archive/$ANACONDA_SCRIPT
 bash /mnt/$ANACONDA_SCRIPT -b -p $ANACONDA_PATH
+rm /mnt/$ANACONDA_SCRIPT
 
 PIP_REQUIREMENTS_FILE=/tmp/requirements.txt
 aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/python-requirements.txt $PIP_REQUIREMENTS_FILE
 $ANACONDA_PATH/bin/pip install -r $PIP_REQUIREMENTS_FILE
-
-rm /mnt/$ANACONDA_SCRIPT
 rm $PIP_REQUIREMENTS_FILE
 
 $ANACONDA_PATH/bin/conda create -n zeppelin python=3.6 cairo pillow -y -q
-source activate zeppelin
+source $ANACONDA_PATH/bin/activate zeppelin
 aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/python3-requirements.txt $PIP_REQUIREMENTS_FILE
-pip install -r $PIP_REQUIREMENTS_FILE
+$CONDA_PREFIX/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $PIP_REQUIREMENTS_FILE
-source deactivate zeppelin
+source $ANACONDA_PATH/bin/deactivate zeppelin
 
 AUTH_KEYS_PATH="$HOME/.ssh/authorized_keys"
 

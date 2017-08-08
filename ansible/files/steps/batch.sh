@@ -89,10 +89,11 @@ else
     fi
     if [ $EXTENSION = "json" ]; then
         # Executes Zeppelin notebook
+        ZEPPELIN_PATH=/mnt/anaconda2/envs/zeppelin
         source activate zeppelin
-        zeppelin-execute -i ../${NOTEBOOK_NAME} -o ./${NOTEBOOK_NAME}
+        ${ZEPPELIN_PATH}/bin/zeppelin-execute -i ../${NOTEBOOK_NAME} -o ./${NOTEBOOK_NAME}
         EXIT_CODE=$?
-        zeppelin-convert -i ./${NOTEBOOK_NAME} -o ./${OUTPUT_FILE_NAME}
+        ${ZEPPELIN_PATH}/bin/zeppelin-convert -i ./${NOTEBOOK_NAME} -o ./${OUTPUT_FILE_NAME}
         if [ $EXIT_CODE != 0 ]; then
             # If there is an error during execution, the errors will be printed to log
 	    cat ${FILE_NAME}.md

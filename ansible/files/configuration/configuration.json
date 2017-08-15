@@ -23,6 +23,7 @@
   }, {
     "Classification": "spark-defaults",
     "Properties": {
+      "spark.ui.killEnabled": "true",
       "spark.local.dir": "/mnt,/mnt1",
       "spark.driver.maxResultSize": "4g",
       "spark.driver.memory": "4g",

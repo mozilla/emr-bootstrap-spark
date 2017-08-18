@@ -7,7 +7,7 @@ This packages contains the AWS bootstrap scripts for Mozilla's flavoured Spark s
 ```bash
 export SPARK_PROFILE=telemetry-spark-cloudformation-TelemetrySparkInstanceProfile-1SATUBVEXG7E3
 export SPARK_BUCKET=telemetry-spark-emr-2
-export KEY_NAME=mozilla_vitillo
+export KEY_NAME=20161025-dataops-dev
 aws emr create-cluster \
   --region us-west-2 \
   --name SparkCluster \

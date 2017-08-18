@@ -204,18 +204,18 @@ sudo chown hadoop:hadoop "$GLOBAL_BASHRC"
 sudo chmod 700 "$GLOBAL_BASHRC"
 
 # Configure environment variables
-sudo echo "" >> "$GLOBAL_BASHRC"
-sudo echo "export R_LIBS=$HOME/R_libs" >> "$GLOBAL_BASHRC"
-sudo echo "export LD_LIBRARY_PATH=/usr/lib64/RRO-3.2.1/R-3.2.1/lib64/R/lib/" >> "$GLOBAL_BASHRC"
-sudo echo "export PYTHONPATH=/usr/lib/spark/python/" >> "$GLOBAL_BASHRC"
-sudo echo "export SPARK_HOME=/usr/lib/spark" >> "$GLOBAL_BASHRC"
-sudo echo "export PYSPARK_PYTHON=$ANACONDA_PATH/bin/python" >> "$GLOBAL_BASHRC"
-sudo echo "export PYSPARK_DRIVER_PYTHON=jupyter" >> "$GLOBAL_BASHRC"
-sudo echo "export PYSPARK_DRIVER_PYTHON_OPTS=console" >> "$GLOBAL_BASHRC"
-sudo echo "export PATH=$ANACONDA_PATH/bin:\$PATH" >> "$GLOBAL_BASHRC"
-sudo echo "export _JAVA_OPTIONS=\"-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY -Xms$DRIVER_MIN_HEAP\"" >> "$GLOBAL_BASHRC"
-sudo echo "export PYSPARK_SUBMIT_ARGS=\"--packages com.databricks:spark-csv_2.10:1.2.0 --master yarn --deploy-mode client --executor-memory $EXECUTOR_MEMORY --conf spark.yarn.executor.memoryOverhead=$MEMORY_OVERHEAD pyspark-shell\"" >> "$GLOBAL_BASHRC"
-sudo echo "export HIVE_SERVER={{metastore_dns}}" >> "$GLOBAL_BASHRC"
+sudo tee -a ${GLOBAL_BASHRC} <<EOF
+export R_LIBS=$HOME/R_libs
+export LD_LIBRARY_PATH=/usr/lib64/RRO-3.2.1/R-3.2.1/lib64/R/lib/
+export PYTHONPATH=/usr/lib/spark/python/
+export SPARK_HOME=/usr/lib/spark
+export PYSPARK_PYTHON=$ANACONDA_PATH/bin/python
+export PYSPARK_DRIVER_PYTHON=jupyter
+export PYSPARK_DRIVER_PYTHON_OPTS=console
+export PATH=$ANACONDA_PATH/bin:$PATH
+export _JAVA_OPTIONS="-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY -Xms$DRIVER_MIN_HEAP"
+export HIVE_SERVER={{metastore_dns}}
+EOF
 
 source "$GLOBAL_BASHRC"
 

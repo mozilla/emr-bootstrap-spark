@@ -5,7 +5,8 @@ set -x
 chmod o+w /mnt /mnt1
 source /etc/profile.d/atmo.sh
 
-echo "export PYSPARK_PYTHON=$PYSPARK_PYTHON" | sudo tee -a /etc/zeppelin/conf/zeppelin-env.sh
+# the EMR-provided zeppelin-env.sh file does not necessarily end with a newline
+echo -e "\nexport PYSPARK_PYTHON=$PYSPARK_PYTHON" | sudo tee -a /etc/zeppelin/conf/zeppelin-env.sh
 sudo aws s3 cp s3://{{telemetry_analysis_spark_emr_bucket}}/configuration/zeppelin/interpreter.json /etc/zeppelin/conf/interpreter.json
 sudo chown zeppelin:zeppelin /etc/zeppelin/conf/interpreter.json
 

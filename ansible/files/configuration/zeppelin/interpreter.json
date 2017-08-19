@@ -1,22 +1,105 @@
 {
   "interpreterSettings": {
+    "2AJXGMUUJ": {
+      "id": "2AJXGMUUJ",
+      "name": "md",
+      "group": "md",
+      "properties": {},
+      "interpreterGroup": [
+        {
+          "class": "org.apache.zeppelin.markdown.Markdown",
+          "name": "md"
+        }
+      ],
+      "option": {
+        "remote": true,
+        "port": -1,
+        "perNoteSession": false,
+        "perNoteProcess": false,
+        "isExistingProcess": false
+      }
+    },
+    "2AM1YV5CU": {
+      "id": "2AM1YV5CU",
+      "name": "angular",
+      "group": "angular",
+      "properties": {},
+      "interpreterGroup": [
+        {
+          "class": "org.apache.zeppelin.angular.AngularInterpreter",
+          "name": "angular"
+        }
+      ],
+      "option": {
+        "remote": true,
+        "port": -1,
+        "perNoteSession": false,
+        "perNoteProcess": false,
+        "isExistingProcess": false
+      }
+    },
+    "2BRWU4WXC": {
+      "id": "2BRWU4WXC",
+      "name": "python",
+      "group": "python",
+      "properties": {
+        "zeppelin.python": "{{telemetry_analysis_anaconda_path}}/bin/python",
+        "zeppelin.python.maxResult": "1000"
+      },
+      "interpreterGroup": [
+        {
+          "name": "python",
+          "class": "org.apache.zeppelin.python.PythonInterpreter"
+        }
+      ],
+      "dependencies": [],
+      "option": {
+        "remote": true,
+        "port": -1,
+        "perNoteSession": false,
+        "perNoteProcess": false,
+        "isExistingProcess": false
+      }
+    },
+    "2AKK3QQXU": {
+      "id": "2AKK3QQXU",
+      "name": "sh",
+      "group": "sh",
+      "properties": {
+        "shell.command.timeout.millisecs": "60000"
+      },
+      "interpreterGroup": [
+        {
+          "name": "sh",
+          "class": "org.apache.zeppelin.shell.ShellInterpreter"
+        }
+      ],
+      "dependencies": [],
+      "option": {
+        "remote": true,
+        "port": -1,
+        "perNoteSession": false,
+        "perNoteProcess": false,
+        "isExistingProcess": false
+      }
+    },
     "2ANGGHHMQ": {
       "id": "2ANGGHHMQ",
       "name": "spark",
       "group": "spark",
       "properties": {
-        "zeppelin.spark.printREPLOutput": "true",
         "spark.yarn.jar": "",
+        "zeppelin.spark.printREPLOutput": "true",
         "master": "yarn-client",
         "zeppelin.spark.maxResult": "1000",
         "spark.app.name": "Zeppelin",
-        "zeppelin.spark.importImplicit": "true",
         "zeppelin.spark.useHiveContext": "true",
-        "zeppelin.interpreter.localRepo": "/usr/lib/zeppelin/local-repo/2ANGGHHMQ",
-        "zeppelin.spark.concurrentSQL": "false",
-        "spark.home": "/usr/lib/spark",
         "args": "",
-        "zeppelin.pyspark.python": "{{telemetry_analysis_anaconda_path}}/bin/python"
+        "spark.home": "/usr/lib/spark",
+        "zeppelin.spark.concurrentSQL": "false",
+        "zeppelin.spark.importImplicit": "true",
+        "zeppelin.pyspark.python": "{{telemetry_analysis_anaconda_path}}/bin/python",
+        "zeppelin.dep.localrepo":"/usr/lib/zeppelin/local-repo"
       },
       "interpreterGroup": [
         {
@@ -32,80 +115,12 @@
           "name": "sql"
         }
       ],
-      "dependencies": [],
       "option": {
         "remote": true,
+        "port": -1,
         "perNoteSession": false,
         "perNoteProcess": false,
-        "isExistingProcess": false,
-        "port": "-1"
-      }
-    },
-    "2BRWU4WXC": {
-      "id": "2BRWU4WXC",
-      "name": "python",
-      "group": "python",
-      "properties": {
-        "zeppelin.python": "{{telemetry_analysis_anaconda_path}}/bin/python",
-        "zeppelin.python.maxResult": "1000"
-      },
-      "interpreterGroup": [
-        {
-          "class": "org.apache.zeppelin.python.PythonInterpreter",
-          "name": "python"
-        }
-      ],
-      "dependencies": [],
-      "option": {
-        "remote": true,
-        "perNoteSession": false,
-        "perNoteProcess": false,
-        "isExistingProcess": false,
-        "port": "-1"
-      }
-    },
-    "2AJXGMUUJ": {
-      "id": "2AJXGMUUJ",
-      "name": "md",
-      "group": "md",
-      "properties": {
-        "zeppelin.interpreter.localRepo": "/usr/lib/zeppelin/local-repo/2AJXGMUUJ"
-      },
-      "interpreterGroup": [
-        {
-          "class": "org.apache.zeppelin.markdown.Markdown",
-          "name": "md"
-        }
-      ],
-      "dependencies": [],
-      "option": {
-        "remote": true,
-        "perNoteSession": false,
-        "perNoteProcess": false,
-        "isExistingProcess": false,
-        "port": "-1"
-      }
-    },
-    "2AKK3QQXU": {
-      "id": "2AKK3QQXU",
-      "name": "sh",
-      "group": "sh",
-      "properties": {
-        "shell.command.timeout.millisecs": "60000"
-      },
-      "interpreterGroup": [
-        {
-          "class": "org.apache.zeppelin.shell.ShellInterpreter",
-          "name": "sh"
-        }
-      ],
-      "dependencies": [],
-      "option": {
-        "remote": true,
-        "perNoteSession": false,
-        "perNoteProcess": false,
-        "isExistingProcess": false,
-        "port": "-1"
+        "isExistingProcess": false
       }
     }
   },
@@ -116,63 +131,6 @@
       "2AM1YV5CU",
       "2AKK3QQXU",
       "2BRWU4WXC"
-    ],
-    "2C9CG1T4Z": [
-      "2ANGGHHMQ",
-      "2AJXGMUUJ",
-      "2AM1YV5CU",
-      "2AKK3QQXU",
-      "2BRWU4WXC"
-    ],
-    "2CAFFHNRH": [
-      "2ANGGHHMQ",
-      "2AJXGMUUJ",
-      "2AM1YV5CU",
-      "2AKK3QQXU",
-      "2BRWU4WXC"
-    ],
-    "2C9H41SEV": [
-      "2ANGGHHMQ",
-      "2AJXGMUUJ",
-      "2AM1YV5CU",
-      "2AKK3QQXU",
-      "2BRWU4WXC"
     ]
-  },
-  "interpreterRepositories": [
-    {
-      "id": "central",
-      "type": "default",
-      "url": "http://repo1.maven.org/maven2/",
-      "releasePolicy": {
-        "enabled": true,
-        "updatePolicy": "daily",
-        "checksumPolicy": "warn"
-      },
-      "snapshotPolicy": {
-        "enabled": true,
-        "updatePolicy": "daily",
-        "checksumPolicy": "warn"
-      },
-      "mirroredRepositories": [],
-      "repositoryManager": false
-    },
-    {
-      "id": "local",
-      "type": "default",
-      "url": "file:///var/lib/zeppelin/.m2/repository",
-      "releasePolicy": {
-        "enabled": true,
-        "updatePolicy": "daily",
-        "checksumPolicy": "warn"
-      },
-      "snapshotPolicy": {
-        "enabled": true,
-        "updatePolicy": "daily",
-        "checksumPolicy": "warn"
-      },
-      "mirroredRepositories": [],
-      "repositoryManager": false
-    }
-  ]
+  }
 }

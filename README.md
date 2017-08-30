@@ -48,3 +48,30 @@ ansible-playbook ansible/deploy.yml -e '@ansible/envs/production.yml' -i ansible
 ```
 
 The Spark Jupyter notebook configuration is hosted at `https://s3-us-west-2.amazonaws.com/telemetry-spark-emr-2/credentials/jupyter_notebook_config.py`. At the moment, this is only needed for the GitHub Gist export option in the Jupyter notebook. The credentials it contains are managed under the [Mozilla GitHub account](https://github.com/mozilla/) by :whd. This file **should not be made public**.
+
+
+## Contributing to `emr-bootstrap-spark`
+
+You may set up a development environment to test and verify modifications applied to this repository.
+
+### Install prerequisite packages
+```
+pip install ansible boto boto3
+```
+
+### Create and bootstrap the development environment
+* Define a new ansible environment in `env/username.yml`
+    * Set `spark_emr_bucket` to a unique bucket e.g. `telemetry-spark-emr-2-dev-username`
+    * Set `stack_name` to a unique name e.g. `telemetry-spark-cloudformation-dev-username`
+* Recursively copy assets from `staging` to `dev`
+    * `aws s3 cp --recursive s3://telemetry-spark-emr-2-stage s3://telemetry-spark-emr-2-dev-username`
+* Deploy to AWS using `ansible-playbook` on the new environment
+* Launch a new instance using the appropriate `SPARK_PROFILE` and `SPARK_BUCKET` keys
+    * Set `SPARK_PROFILE` to the cloudformation instance profile
+        * This can be found as an output on the cloudformation dashboard
+        * Alternatively:
+            ```
+               aws cloudformation describe-stacks --stack-name telemetry-spark-cloudformation-dev-username |
+               jq '.Stacks[0].Outputs[0].OutputValue'
+            ```
+    * Set `SPARK_BUCKET` to `spark_emr_bucket` value in `env/username.yml`

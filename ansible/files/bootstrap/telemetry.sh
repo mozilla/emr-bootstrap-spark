@@ -221,6 +221,10 @@ source "$GLOBAL_BASHRC"
 
 
 # Configure Jupyter
+
+$ANACONDA_PATH/bin/pip install jupyter_contrib_nbextensions jupyter_nbextensions_configurator
+jupyter nbextensions_configurator enable --user
+
 jupyter nbextension enable --py widgetsnbextension --user
 
 jupyter serverextension enable --py jupyter_notebook_gist --user

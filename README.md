@@ -60,18 +60,18 @@ pip install ansible boto boto3
 ```
 
 ### Create and bootstrap the development environment
-* Define a new ansible environment in `env/username.yml`
-    * Set `spark_emr_bucket` to a unique bucket e.g. `telemetry-spark-emr-2-dev-username`
-    * Set `stack_name` to a unique name e.g. `telemetry-spark-cloudformation-dev-username`
+* Define a new ansible environment in `env/dev-<username>.yml`
+    * Set `spark_emr_bucket` to a unique bucket e.g. `telemetry-spark-emr-2-dev-<username>`
+    * Set `stack_name` to a unique name e.g. `telemetry-spark-cloudformation-dev-<username>`
 * Recursively copy assets from `staging` to `dev`
-    * `aws s3 cp --recursive s3://telemetry-spark-emr-2-stage s3://telemetry-spark-emr-2-dev-username`
+    * `aws s3 cp --recursive s3://telemetry-spark-emr-2-stage s3://telemetry-spark-emr-2-dev-<username>`
 * Deploy to AWS using `ansible-playbook` on the new environment
 * Launch a new instance using the appropriate `SPARK_PROFILE` and `SPARK_BUCKET` keys
     * Set `SPARK_PROFILE` to the cloudformation instance profile
         * This can be found as an output on the cloudformation dashboard
         * Alternatively:
             ```
-               aws cloudformation describe-stacks --stack-name telemetry-spark-cloudformation-dev-username |
+               aws cloudformation describe-stacks --stack-name telemetry-spark-cloudformation-dev-<username> |
                jq '.Stacks[0].Outputs[0].OutputValue'
             ```
-    * Set `SPARK_BUCKET` to `spark_emr_bucket` value in `env/username.yml`
+    * Set `SPARK_BUCKET` to `spark_emr_bucket` value in `env/dev-<username>.yml`

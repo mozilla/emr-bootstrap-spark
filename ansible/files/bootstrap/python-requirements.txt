@@ -1,3 +1,4 @@
+awscli==1.11.132
 boto3==1.4.4
 jupyter-notebook-gist>=0.4.0,<1.0.0
 jupyter-spark>=0.3.0,<1.0.0

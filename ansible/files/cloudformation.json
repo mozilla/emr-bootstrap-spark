@@ -42,6 +42,77 @@
         },
         "Policies": [
           {
+            "PolicyName": "TAARDynamoDBDev",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "Stmt1",
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:CreateBackup",
+                    "dynamodb:CreateTable",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:DeleteTable",
+                    "dynamodb:DescribeContinuousBackups",
+                    "dynamodb:DescribeStream",
+                    "dynamodb:DescribeTable",
+                    "dynamodb:GetItem",
+                    "dynamodb:GetRecords",
+                    "dynamodb:GetShardIterator",
+                    "dynamodb:PutItem",
+                    "dynamodb:Query",
+                    "dynamodb:RestoreTableFromBackup",
+                    "dynamodb:Scan",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:UpdateTable"
+                  ],
+                  "Resource": [
+                    "arn:aws:dynamodb:us-west-2:927034868273:table/taar_addon_data/stream/*",
+                    "arn:aws:dynamodb:us-west-2:927034868273:table/taar_addon_data",
+                    "arn:aws:dynamodb:us-west-2:927034868273:table/taar_addon_data/index/*",
+                    "arn:aws:dynamodb:us-west-2:927034868273:table/taar_addon_data_20180206",
+                    "arn:aws:dynamodb:us-west-2:927034868273:table/taar_addon_data_20180206/index/*",
+                    "arn:aws:dynamodb:us-west-2:927034868273:table/taar_addon_data_20180206/stream/*"
+                  ]
+                },
+                {
+                  "Sid": "Stmt2",
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:DescribeLimits",
+                    "dynamodb:DescribeReservedCapacity",
+                    "dynamodb:DescribeReservedCapacityOfferings",
+                    "dynamodb:DescribeTimeToLive",
+                    "dynamodb:ListBackups",
+                    "dynamodb:ListStreams",
+                    "dynamodb:ListTables",
+                    "dynamodb:ListTagsOfResource",
+                    "dynamodb:TagResource",
+                    "dynamodb:UntagResource"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          },
+          {
+            "PolicyName": "AssumeRoleProdTAARDynamoDB",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "Stmt1",
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": "arn:aws:iam::361527076523:role/taar-write-dynamodb-from-dev"
+                }
+              ]
+            }
+          },
+          {
             "PolicyName": {"Ref": "TelemetryAnalysisIAMRole"},
             "PolicyDocument": {
               "Version": "2012-10-17",

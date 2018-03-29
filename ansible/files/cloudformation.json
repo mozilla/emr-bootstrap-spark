@@ -145,6 +145,8 @@
                     "arn:aws:s3:::org-allizom-telemetry-crashes/*",
                     "arn:aws:s3:::org-mozilla-telemetry-crashes",
                     "arn:aws:s3:::org-mozilla-telemetry-crashes/*",
+                    "arn:aws:s3:::crashstats-telemetry-crashes-prod-us-west-2",
+                    "arn:aws:s3:::crashstats-telemetry-crashes-prod-us-west-2/*",
                     "arn:aws:s3:::net-mozaws-prod-cliqz",
                     "arn:aws:s3:::net-mozaws-prod-cliqz/*"
                   ]

@@ -178,15 +178,15 @@ if [ ! -z $TIMEOUT ]; then
     sudo shutdown -h +$TIMEOUT&
 fi
 
-# Continue only if master node
-if [ "$IS_MASTER" = false ]; then
-    exit
-fi
-
 # Setup Spark logging
 sudo mkdir -p /mnt/var/log/spark
 sudo chmod a+rw /mnt/var/log/spark
 touch /mnt/var/log/spark/spark.log
+
+# Continue only if master node
+if [ "$IS_MASTER" = false ]; then
+    exit
+fi
 
 # Setup R environment
 cd /mnt

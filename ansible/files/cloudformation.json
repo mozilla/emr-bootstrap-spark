@@ -300,6 +300,8 @@
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-pipeline-analysis/*",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-data-pitmo",
                     "arn:aws:s3:::net-mozaws-prod-us-west-2-data-pitmo/*",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-data-public",
+                    "arn:aws:s3:::net-mozaws-prod-us-west-2-data-public/*",
                     "arn:aws:s3:::net-mozaws-prod-metrics-data",
                     "arn:aws:s3:::net-mozaws-prod-metrics-data/*",
                     "arn:aws:s3:::mozilla-metrics",

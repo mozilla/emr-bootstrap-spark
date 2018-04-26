@@ -19,6 +19,9 @@
     },
     "TelemetryAnalysisIAMRole": {
       "Type": "String"
+    },
+    "TelemetryAnalysisArtifactsBucket": {
+      "Type": "String"
     }
   },
   "Resources": {
@@ -201,6 +204,29 @@
                           "arn:aws:s3:::",
                           {
                             "Ref": "TelemetryAnalysisSparkEMRBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisArtifactsBucket"
+                          }
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "TelemetryAnalysisArtifactsBucket"
                           },
                           "/*"
                         ]

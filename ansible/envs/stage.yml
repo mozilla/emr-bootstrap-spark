@@ -10,3 +10,4 @@ telemetry_analysis_logs_bucket: telemetry-analysis-logs-2
 telemetry_analysis_anaconda_path: /mnt/anaconda2
 telemetry_analysis_metastore_stack_name: telemetry-metastore
 telemetry_analysis_iam_role: telemetry-spark-emr-stage
+telemetry_analysis_artifacts_bucket: net-mozaws-data-us-west-2-ops-ci-artifacts

@@ -27,6 +27,7 @@
           TelemetryAnalysisPrivateBucket: "{{telemetry_analysis_private_bucket}}"
           TelemetryAnalysisLogsBucket: "{{telemetry_analysis_logs_bucket}}"
           TelemetryAnalysisIAMRole: "{{telemetry_analysis_iam_role}}"
+          TelemetryAnalysisArtifactsBucket: "{{telemetry_analysis_artifacts_bucket}}"
 
     - name: create bucket
       s3: bucket={{telemetry_analysis_spark_emr_bucket}} region={{telemetry_analysis_region}} mode=create

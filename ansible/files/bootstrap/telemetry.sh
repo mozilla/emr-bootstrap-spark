@@ -157,7 +157,7 @@ rm $PIP_REQUIREMENTS_FILE
 
 $ANACONDA_PATH/bin/conda create -n zeppelin python=3.6 cairo pillow -y -q
 source $ANACONDA_PATH/bin/activate zeppelin
-aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/python3-requirements.txt $PIP_REQUIREMENTS_FILE
+aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/zeppelin-requirements.txt $PIP_REQUIREMENTS_FILE
 $CONDA_PREFIX/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $PIP_REQUIREMENTS_FILE
 source $ANACONDA_PATH/bin/deactivate zeppelin

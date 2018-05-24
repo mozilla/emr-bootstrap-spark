@@ -1,5 +1,5 @@
-awscli==1.11.132
-boto3==1.4.4
+awscli==1.15.26
+boto3==1.7.26
 notebook>=5.4.0,<5.5.0
 jupyterlab>0.31.0,<1.0
 jupyter-notebook-gist>=0.4.0,<1.0.0
@@ -8,9 +8,9 @@ montecarlino==0.1.6
 parquet2hive==0.3.0
 plotly==1.6.16
 protobuf==3.1.0
-py4j==0.8.2.1
+py4j==0.10.6
 pyliblzma==0.5.3
-python-mozaggregator==0.3.0.1
+python-mozaggregator==0.3.0.3
 python_moztelemetry>=0.5,<1.0.0
 seaborn==0.6.0
 pyarrow==0.7.1

@@ -8,6 +8,6 @@ telemetry_analysis_public_bucket: telemetry-public-analysis-2
 telemetry_analysis_private_bucket: telemetry-private-analysis-2
 telemetry_analysis_logs_bucket: telemetry-analysis-logs-2
 telemetry_analysis_anaconda_path: /mnt/anaconda2
-telemetry_analysis_metastore_stack_name: telemetry-metastore
 telemetry_analysis_iam_role: telemetry-spark-emr-stage
 telemetry_analysis_artifacts_bucket: net-mozaws-data-us-west-2-ops-ci-artifacts
+metastore_dns: data-metastore.dev.mozaws.net

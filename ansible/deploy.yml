@@ -1,15 +1,7 @@
 - name: provision aws resources
   hosts: localhost
-  vars:
-    metastore_stack: "{{cloudformation[telemetry_analysis_metastore_stack_name]}}"
-    metastore_dns: "{{metastore_stack.stack_outputs.ClusterDNS}}"
 
   tasks:
-    - name: lookup metastore stack
-      cloudformation_facts:
-        stack_name: "{{telemetry_analysis_metastore_stack_name}}"
-        region: "{{telemetry_analysis_region}}"
-
     - name: launch cloudformation
       cloudformation:
         stack_name: "{{stack_name}}"

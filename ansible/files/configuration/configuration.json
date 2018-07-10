@@ -27,8 +27,6 @@
       "spark.local.dir": "/mnt,/mnt1",
       "spark.driver.maxResultSize": "4g",
       "spark.driver.memory": "4g",
-      "spark.jars.packages": "com.mozilla.telemetry:spark-hyperloglog_2.11:2.2.2",
-      "spark.jars.repositories": "https://s3-us-west-2.amazonaws.com/net-mozaws-data-us-west-2-ops-mavenrepo/releases/,https://s3-us-west-2.amazonaws.com/net-mozaws-data-us-west-2-ops-mavenrepo/snapshots/",
       "spark.rpc.message.maxSize": "512",
       "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
       "spark.sql.sources.partitionColumnTypeInference.enabled": "false",

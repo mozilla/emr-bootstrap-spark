@@ -15,7 +15,7 @@ echo 'export MPLBACKEND="agg"' | sudo tee -a /etc/zeppelin/conf/zeppelin-env.sh
 
 # Preload Scala packages
 repositories="https://oss.sonatype.org/content/repositories/snapshots"
-packages="com.mozilla.telemetry:moztelemetry_2.11:1.0-SNAPSHOT"
+packages="com.mozilla.telemetry:moztelemetry_2.11:1.0-SNAPSHOT,vitillo:spark-hyperloglog:1.1.1"
 
 echo ":quit" | spark-shell --master local[1] --repositories $repositories --packages $packages
 sudo ln -s $HOME/.ivy2 /var/lib/zeppelin/.ivy2

@@ -46,6 +46,7 @@ done
 
 CURRENT_KEY=`cat $HOME/.ssh/authorized_keys`
 TELEMETRY_CONF_BUCKET=s3://{{telemetry_analysis_spark_emr_bucket}}
+ARTIFACTS_BUCKET=s3://{{telemetry_analysis_artifacts_bucket}}
 MEMORY_OVERHEAD=7000  # Tuned for c3.4xlarge
 EXECUTOR_MEMORY=15000M
 DRIVER_MIN_HEAP=1000M
@@ -142,6 +143,13 @@ aws s3 cp $TELEMETRY_CONF_BUCKET/sbt-$sbt_version.rpm $HOME/sbt.rpm
 sudo yum -y localinstall $HOME/sbt.rpm
 rm $HOME/sbt.rpm
 
+# Install spark packages
+# See https://github.com/mozilla/telemetry-spark-packages-assembly
+TSPA_VERSION=v1.0.0
+TSPA_S3_PATH=$ARTIFACTS_BUCKET/mozilla/telemetry-spark-packages-assembly/$TSPA_VERSION/telemetry-spark-packages-assembly.jar
+TSPA_JAR=/usr/lib/spark/jars/telemetry-spark-packages-assembly.jar
+sudo aws s3 cp $TSPA_S3_PATH $TSPA_JAR
+
 # Setup Python
 export ANACONDA_PATH={{telemetry_analysis_anaconda_path}}
 
@@ -209,7 +217,7 @@ sudo chmod 700 "$GLOBAL_BASHRC"
 sudo tee -a ${GLOBAL_BASHRC} <<EOF
 export R_LIBS=$HOME/R_libs
 export LD_LIBRARY_PATH=/usr/lib64/RRO-3.2.1/R-3.2.1/lib64/R/lib/
-export PYTHONPATH=/usr/lib/spark/python/
+export PYTHONPATH=/usr/lib/spark/python/:$TSPA_JAR
 export SPARK_HOME=/usr/lib/spark
 export PYSPARK_PYTHON=$ANACONDA_PATH/bin/python
 export PYSPARK_DRIVER_PYTHON=jupyter

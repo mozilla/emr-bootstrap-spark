@@ -14,10 +14,14 @@ except NameError:
     # sc isn't defined, so this must be a normal python session; nothing to do.
     pass
 else:
-    # Workaround for EMR bug; when the --packages arg is specified to pyspark,
+    # Workaround for EMR-specific behavior;
+    # when the --packages arg is specified to pyspark,
     # the path that ends up in spark.submit.pyFiles is valid,
     # but not the one on sys.path (at least on the master node);
     # we make sure all the entries on pyFiles end up on sys.path.
+    #
+    # See our case with AWS in the cloudservices-aws-dev account:
+    # https://console.aws.amazon.com/support/v1?region=us-west-2#/case/?displayId=5170206571&language=en
     for p in str(sc.getConf().get(u'spark.submit.pyFiles')).split(','):
         if p not in sys.path:
             sys.path.append(p)

@@ -162,6 +162,8 @@ $CONDA_PREFIX/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $PIP_REQUIREMENTS_FILE
 source $ANACONDA_PATH/bin/deactivate zeppelin
 
+sudo aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/pythonstartup.py /usr/lib/spark/python/
+
 AUTH_KEYS_PATH="$HOME/.ssh/authorized_keys"
 
 # Add public key if it's not currently there
@@ -212,6 +214,7 @@ export SPARK_HOME=/usr/lib/spark
 export PYSPARK_PYTHON=$ANACONDA_PATH/bin/python
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS=console
+export PYTHONSTARTUP=/usr/lib/spark/python/pythonstartup.py
 export PATH=$ANACONDA_PATH/bin:$PATH
 export _JAVA_OPTIONS="-Djava.io.tmpdir=/mnt1/ -Xmx$DRIVER_MEMORY -Xms$DRIVER_MIN_HEAP"
 export HIVE_SERVER={{metastore_dns}}

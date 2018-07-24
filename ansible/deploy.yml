@@ -34,6 +34,7 @@
         - bootstrap/telemetry.sh
         - bootstrap/python-requirements.txt
         - bootstrap/zeppelin-requirements.txt
+        - bootstrap/pythonstartup.py
 
     - name: copy public EMR files
       include: render_and_copy_to_s3.yml file={{item}} permission="public-read"

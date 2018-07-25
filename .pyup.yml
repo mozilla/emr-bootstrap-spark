@@ -1,3 +1,4 @@
+update: insecure
 search: False
 label_prs: update
 requirements:

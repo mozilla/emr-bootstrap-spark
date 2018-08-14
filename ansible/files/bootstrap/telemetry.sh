@@ -170,6 +170,9 @@ $CONDA_PREFIX/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $PIP_REQUIREMENTS_FILE
 source $ANACONDA_PATH/bin/deactivate zeppelin
 
+# This pythonstartup.py file (and the `export PYTHONSTARTUP` below)
+# can be removed once ATMO and Airflow are both on EMR 5.16+; see
+# https://console.aws.amazon.com/support/v1#/case/?displayId=5170206571&language=en
 sudo aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/pythonstartup.py /usr/lib/spark/python/
 
 AUTH_KEYS_PATH="$HOME/.ssh/authorized_keys"

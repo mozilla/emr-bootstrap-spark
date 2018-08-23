@@ -23,6 +23,8 @@
   }, {
     "Classification": "spark-defaults",
     "Properties": {
+      "spark.metrics.conf": "/mnt/spark-metrics.properties",
+      "spark.metrics.namespace": "spark",
       "spark.ui.killEnabled": "true",
       "spark.local.dir": "/mnt,/mnt1",
       "spark.driver.maxResultSize": "4g",

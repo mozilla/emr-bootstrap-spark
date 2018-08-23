@@ -411,6 +411,7 @@
                   "Effect": "Allow",
                   "Action": [
                     "elasticmapreduce:Describe*",
+                    "elasticmapreduce:List*",
                     "ec2:Describe*",
                     "rds:Describe*"
                   ],

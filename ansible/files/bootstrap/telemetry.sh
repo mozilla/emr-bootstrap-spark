@@ -13,6 +13,17 @@ then
     IS_MASTER=$(jq .isMaster /mnt/var/lib/info/instance.json)
 fi
 
+# Provide a query interface for describe-cluster results.
+describe_cluster() {
+    local query=$1
+    jq -r "$query" /mnt/describe-cluster.json
+}
+
+# Pull information about the cluster.
+CLUSTER_ID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
+aws emr describe-cluster --region us-west-2 --cluster-id "$CLUSTER_ID" > /mnt/describe-cluster.json
+CLUSTER_NAME=$(describe_cluster '.Cluster.Name')
+
 # Parse arguments
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -31,6 +42,10 @@ while [ $# -gt 0 ]; do
         --efs-dns)
             shift
             EFS_DNS=$1
+            ;;
+        --metrics-provider)
+            shift
+            METRICS_PROVIDER=$1
             ;;
         -*)
             # do not exit out, just note failure
@@ -208,6 +223,62 @@ tar -xzf RRO-3.2.1-el6.x86_64.tar.gz
 rm RRO-3.2.1-el6.x86_64.tar.gz
 cd RRO-3.2.1; sudo ./install.sh; cd $HOME
 $ANACONDA_PATH/bin/pip install rpy2
+
+# Setup metrics reporting
+SOPS_RPM=sops-3.0.4-1.x86_64.rpm
+SPARK_METRICS_CONF=/mnt/spark-metrics.properties
+touch $SPARK_METRICS_CONF
+if [ "$METRICS_PROVIDER" = "datadog" ] ; then
+    # Pull down and decrypt Datadog API key; see https://github.com/mozilla/emr-bootstrap-spark/pull/485
+    DD_DIR=$(mktemp -d)
+    aws s3 cp $TELEMETRY_CONF_BUCKET/packages/$SOPS_RPM $DD_DIR/
+    aws s3 cp $TELEMETRY_CONF_BUCKET/credentials/emr.yaml $DD_DIR/
+    sudo yum -y localinstall $DD_DIR/$SOPS_RPM
+    export DD_API_KEY=$(/usr/local/bin/sops --decrypt --extract '["datadog_agent::api_key"]' $DD_DIR/emr.yaml)
+    # Install datadog-agent; see https://app.datadoghq.com/account/settings#agent/aws
+    bash -c "$(curl -sLS https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"
+    rm -r "$DD_DIR"
+
+    # We opt not use to use https://docs.datadoghq.com/integrations/spark/
+    # Instead, we standardize on statsd metrics using Spark's StatsDSink
+    # and configure tags in the agent that will be applied by dogstatsd.
+    # This should make switching to a new metrics provider relatively straightforward.
+
+    MIN_SPARK_VERSION=2.3.0
+    SPARK_VERSION=$(describe_cluster '.Cluster.Applications[] | select(.Name=="Spark") | .Version')
+    spark_has_statsdsink() {
+        # Drop into python to take advantage of pkg_version.parse_version,
+        # which will provide more robust comparison than pure bash.
+        python <<EOF
+from sys import exit
+from pkg_resources import parse_version
+if (parse_version('${SPARK_VERSION}') < parse_version('${MIN_SPARK_VERSION}')):
+   exit(1)
+EOF
+    }
+    if ! spark_has_statsdsink; then
+        echo "ERROR: Incompatible options. StatsdSink is required to support --metrics-provider=datadog; it was introduced in Spark $MIN_SPARK_VERSION, which is later than $SPARK_VERSION present here. Use emr-5.13.0 or later if you need to enable metrics. Terminating..." 1>&2
+        # Cause the cluster to terminate with "Bootstrap failure"
+        exit 1
+    fi
+    echo "*.sink.statsd.class=org.apache.spark.metrics.sink.StatsdSink" >> $SPARK_METRICS_CONF
+
+    # We add tags to the Datadog agent configuration so the DogStatsd provider
+    # will attach them to the messages it sends.
+    # We include all the AWS tags applied to the cluster, so the list here will
+    # likely include App, Application, Environment, etc.
+    sudo tee -a /etc/datadog-agent/datadog.yaml <<EOF
+
+tags:
+- cluster_name:${CLUSTER_NAME}
+- cluster_id:${CLUSTER_ID}
+# Following metric tags correspond to EMR cluster tags
+$(describe_cluster '.Cluster.Tags[] | "- \(.Key):\(.Value)"')
+EOF
+    sudo restart datadog-agent
+elif [ -n "$METRICS_PROVIDER" ]; then
+    echo 1>&2 "unrecognized value for --metrics-provider: $1"
+fi
 
 # Setup global bash file
 # .sh files in /etc/profile.d/ run whenever a user logs in

@@ -11,7 +11,7 @@ protobuf==3.1.0
 py4j==0.10.7
 pyliblzma==0.5.3
 python-mozaggregator==0.3.0.1
-python_moztelemetry==0.9.1
+python_moztelemetry==0.10.3
 seaborn==0.6.0
 pyarrow==0.7.1
 feather-format==0.4.0

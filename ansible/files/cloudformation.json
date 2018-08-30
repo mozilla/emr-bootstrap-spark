@@ -116,6 +116,20 @@
             }
           },
           {
+            "PolicyName": "AssumeRoleSopsDev",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "Stmt1",
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": "arn:aws:iam::927034868273:role/hiera-sops-dev"
+                }
+              ]
+            }
+          },
+          {
             "PolicyName": {"Ref": "TelemetryAnalysisIAMRole"},
             "PolicyDocument": {
               "Version": "2012-10-17",

@@ -270,10 +270,10 @@ EOF
     sudo tee -a /etc/datadog-agent/datadog.yaml <<EOF
 
 tags:
-- cluster_name:${CLUSTER_NAME}
-- cluster_id:${CLUSTER_ID}
+- cluster-name:"${CLUSTER_NAME}"
+- cluster-id:"${CLUSTER_ID}"
 # Following metric tags correspond to EMR cluster tags
-$(describe_cluster '.Cluster.Tags[] | "- \(.Key):\(.Value)"')
+$(describe_cluster '.Cluster.Tags[] | "- \(.Key):\"\(.Value)\""')
 EOF
     sudo restart datadog-agent
 elif [ -n "$METRICS_PROVIDER" ]; then

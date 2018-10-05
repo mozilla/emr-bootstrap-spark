@@ -276,7 +276,7 @@ EOF
         # Cause the cluster to terminate with "Bootstrap failure"
         exit 1
     fi
-    echo "*.sink.statsd.class=org.apache.spark.metrics.sink.StatsdSink" >> $SPARK_METRICS_CONF
+    echo "driver.sink.statsd.class=org.apache.spark.metrics.sink.StatsdSink" >> $SPARK_METRICS_CONF
 
     # We add tags to the Datadog agent configuration so the DogStatsd provider
     # will attach them to the messages it sends.

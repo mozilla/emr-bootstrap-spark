@@ -14,14 +14,29 @@ then
 fi
 
 # Provide a query interface for describe-cluster results.
+CLUSTER_ID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
+initialize_describe_cluster() {
+    local tries=0
+    local sleep_seconds=10
+    until aws emr describe-cluster --region us-west-2 --cluster-id "$CLUSTER_ID" > /mnt/describe-cluster.json
+    do
+        if [[ "$sleep_seconds" -ge 120 ]]; then
+            echo "Too many unsuccessful describe-cluster requests; failing bootstrap"
+            exit 1
+        fi
+        echo "Unsuccessful describe-cluster request; will retry in $sleep_seconds seconds"
+        sleep "$sleep_seconds"
+        let "tries = tries + 1"
+        let "sleep_seconds = sleep_seconds * 2"
+    done
+}
 describe_cluster() {
     local query=$1
     jq -r "$query" /mnt/describe-cluster.json
 }
 
 # Pull information about the cluster.
-CLUSTER_ID=$(jq -r .jobFlowId /mnt/var/lib/info/job-flow.json)
-aws emr describe-cluster --region us-west-2 --cluster-id "$CLUSTER_ID" > /mnt/describe-cluster.json
+initialize_describe_cluster
 CLUSTER_NAME=$(describe_cluster '.Cluster.Name')
 
 # Parse arguments

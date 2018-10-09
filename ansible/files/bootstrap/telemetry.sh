@@ -226,6 +226,11 @@ sudo mkdir -p /mnt/var/log/spark
 touch /mnt/var/log/spark/spark.log
 sudo chmod --recursive a+rw /mnt/var/log/spark
 
+# Initialize Spark metrics configuration
+SPARK_METRICS_CONF=/mnt/spark-metrics.properties
+touch $SPARK_METRICS_CONF
+sudo chmod a+r $SPARK_METRICS_CONF
+
 # Continue only if master node
 if [ "$IS_MASTER" = false ]; then
     exit
@@ -241,8 +246,6 @@ $ANACONDA_PATH/bin/pip install rpy2
 
 # Setup metrics reporting
 SOPS_RPM=sops-3.0.4-1.x86_64.rpm
-SPARK_METRICS_CONF=/mnt/spark-metrics.properties
-touch $SPARK_METRICS_CONF
 if [ "$METRICS_PROVIDER" = "datadog" ] ; then
     # Pull down and decrypt Datadog API key; see https://github.com/mozilla/emr-bootstrap-spark/pull/485
     DD_DIR=$(mktemp -d)

@@ -223,8 +223,8 @@ fi
 
 # Setup Spark logging
 sudo mkdir -p /mnt/var/log/spark
-sudo chmod a+rw /mnt/var/log/spark
 touch /mnt/var/log/spark/spark.log
+sudo chmod --recursive a+rw /mnt/var/log/spark
 
 # Continue only if master node
 if [ "$IS_MASTER" = false ]; then

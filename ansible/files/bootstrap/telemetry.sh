@@ -221,10 +221,14 @@ if [ ! -z $TIMEOUT ]; then
     sudo shutdown -h +$TIMEOUT&
 fi
 
-# Setup Spark logging
-sudo mkdir -p /mnt/var/log/spark
-touch /mnt/var/log/spark/spark.log
-sudo chmod --recursive a+rw /mnt/var/log/spark
+# Setup Spark logging;
+# must be writable by both the spark service and the hadoop user (which submits jobs).
+SPARK_LOG_DIR=/mnt/var/log/spark
+SPARK_LOG=$SPARK_LOG_DIR/spark.log
+sudo mkdir -p $SPARK_LOG_DIR
+sudo chmod a+rw $SPARK_LOG_DIR
+touch $SPARK_LOG
+sudo chmod a+rw $SPARK_LOG
 
 # Initialize Spark metrics configuration
 SPARK_METRICS_CONF=/mnt/spark-metrics.properties

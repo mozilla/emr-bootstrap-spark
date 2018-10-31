@@ -190,6 +190,7 @@ rm /mnt/$ANACONDA_SCRIPT
 
 PIP_REQUIREMENTS_FILE=/tmp/requirements.txt
 aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/python-requirements.txt $PIP_REQUIREMENTS_FILE
+$ANACONDA_PATH/bin/pip --upgrade pip
 $ANACONDA_PATH/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $PIP_REQUIREMENTS_FILE
 

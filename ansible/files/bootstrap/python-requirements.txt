@@ -6,7 +6,7 @@ jupyter-spark>=0.3.0,<1.0.0
 jupyterlab>0.31.0,<0.34.9
 montecarlino==0.1.6
 mozanalysis==2018.11.1
-notebook>=5.4.0,<5.5.0
+notebook==5.7.2
 parquet2hive==0.3.0
 plotly==1.6.16
 protobuf==3.6.1

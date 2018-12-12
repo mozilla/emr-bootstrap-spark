@@ -4,7 +4,9 @@
 exec > >(tee -i /var/log/bootstrap-script.log)
 exec 2>&1
 
-# we won't use `set -e` because that means that AWS would terminate the instance and we wouldn't get logs for why it failed
+# Force the cluster to terminate early with "Bootstrap failure"
+# if any command or pipeline returns non-zero exit status.
+set -eo pipefail
 
 # Check for master node
 IS_MASTER=true
@@ -188,9 +190,13 @@ wget --no-clobber --no-verbose -P /mnt http://repo.continuum.io/archive/$ANACOND
 bash /mnt/$ANACONDA_SCRIPT -b -p $ANACONDA_PATH
 rm /mnt/$ANACONDA_SCRIPT
 
+# The anaconda install uses a fairly old version of pip, and it prompts us to upgrade,
+# but newer pip refused to delete conda-installed packages that the requirements file
+# indicates need to be updated. We cannot upgrade to latest pip without rethinking our
+# strategy of what gets installed via Anaconda vs. pip; there's likely a refactor needed
+# in the future along with dropping python 2 support.
 PIP_REQUIREMENTS_FILE=/tmp/requirements.txt
 aws s3 cp $TELEMETRY_CONF_BUCKET/bootstrap/python-requirements.txt $PIP_REQUIREMENTS_FILE
-$ANACONDA_PATH/bin/pip --upgrade pip
 $ANACONDA_PATH/bin/pip install -r $PIP_REQUIREMENTS_FILE
 rm $PIP_REQUIREMENTS_FILE
 
@@ -243,11 +249,12 @@ fi
 
 # Setup R environment
 cd /mnt
-wget -nc https://mran.microsoft.com/install/RRO-3.2.1-el6.x86_64.tar.gz
-tar -xzf RRO-3.2.1-el6.x86_64.tar.gz
-rm RRO-3.2.1-el6.x86_64.tar.gz
+RRO_FILE=RRO-3.2.1-el6.x86_64.tar.gz
+wget -nc https://mran.blob.core.windows.net/install/$RRO_FILE
+file $RRO_FILE
+tar -xzf $RRO_FILE && rm $RRO_FILE
 cd RRO-3.2.1; sudo ./install.sh; cd $HOME
-$ANACONDA_PATH/bin/pip install rpy2
+$ANACONDA_PATH/bin/pip install rpy2==2.8.6
 
 # Setup metrics reporting
 SOPS_RPM=sops-3.0.4-1.x86_64.rpm

@@ -1,7 +1,10 @@
 emr-bootstrap-spark
 ===================
 
-This packages contains the AWS bootstrap scripts for Mozilla's flavoured Spark setup.
+This package contains the AWS bootstrap scripts for Mozilla's flavoured Spark setup.
+The deployed scripts in S3 are referenced by
+[ATMO clusters](https://github.com/mozilla/telemetry-analysis-service) and
+[Airflow jobs](https://github.com/mozilla/telemetry-airflow).
 
 ## Interactive job
 ```bash
@@ -43,6 +46,18 @@ aws emr create-cluster \
 ```
 
 ## Deploy to AWS via ansible
+
+To deploy to the staging location:
+
+```bash
+ansible-playbook ansible/deploy.yml -e '@ansible/envs/stage.yml' -i ansible/inventory
+```
+
+Once deployed, you can see the effects in action by launching a cluster via
+[ATMO stage](https://atmo.stage.mozaws.net/).
+
+To deploy for production clusters:
+
 ```bash
 ansible-playbook ansible/deploy.yml -e '@ansible/envs/production.yml' -i ansible/inventory
 ```

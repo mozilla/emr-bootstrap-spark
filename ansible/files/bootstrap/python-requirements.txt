@@ -11,7 +11,7 @@ parquet2hive==0.3.0
 plotly==1.6.16
 protobuf==3.6.1
 py4j==0.10.7
-pyarrow==0.7.1
+pyarrow==0.15.0
 pyliblzma==0.5.3
 python-mozaggregator==0.3.0.1
 python_moztelemetry==0.10.4

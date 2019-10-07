@@ -1,4 +1,4 @@
-awscli==1.16.44
+awscli==1.16.253
 boto3==1.9.34
 feather-format==0.4.0
 jupyter-notebook-gist>=0.4.0,<1.0.0

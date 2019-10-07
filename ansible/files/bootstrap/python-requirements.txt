@@ -1,5 +1,5 @@
 awscli==1.16.44
-boto3==1.9.34
+boto3==1.9.243
 feather-format==0.4.0
 jupyter-notebook-gist>=0.4.0,<1.0.0
 jupyter-spark>=0.3.0,<1.0.0

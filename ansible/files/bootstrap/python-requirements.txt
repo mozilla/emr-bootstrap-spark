@@ -3,7 +3,7 @@ boto3==1.9.34
 feather-format==0.4.0
 jupyter-notebook-gist>=0.4.0,<1.0.0
 jupyter-spark>=0.3.0,<1.0.0
-jupyterlab>0.31.0,<0.34.0  # 0.34 and above support only python 3
+jupyterlab==1.2.0  # 0.34 and above support only python 3
 montecarlino==0.1.6
 mozanalysis==2018.12.0
 notebook>=5.4.0,<5.5.0
